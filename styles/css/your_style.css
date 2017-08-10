@@ -18,4 +18,8 @@
  * - CUSTOM STYLES
  */
 
- 
+ .custom-spinner{
+    position: absolute;
+    margin: 2% 51%;
+    z-index: 9;
+ }

@@ -34,17 +34,21 @@
           <small class="text-primary">Please make sure the excel matches the correct standards.</small>
         </h1>
         <div jarvis-widget id="basic-form-elements" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
-          <div class="widget-body">
-
-            <form class="smart-form">
+          <div class="widget-body" style="height: 230px;">
+            <div class="demo-btns custom-spinner" style="position: absolute; margin: 2% 51%; z-index: 9;" ng-if="isUploading">
+              <p>
+                <b>uploading...</b>
+              </p>
+              <a href-void class="btn bg-color-red txt-color-white"><i class="fa fa-gear fa-4x fa-spin"></i></a>
+            </div>
+            <form class="smart-form" ng-if="!isUploading">
               <fieldset>
                 <section>
                   <label class="label">Select Excel</label>
-
-                  <div class="input input-file">
-                    <span class="button"><input type="file" id="file" name="file"
-                                        onchange="this.parentNode.nextSibling.value = this.value">Browse</span>
-                    <input type="text" placeholder="Include some files" readonly="">
+                  <div class="input input-file" cg-busy="myPromise">
+                    <span><input type="file" file-model="myFile" /></span>
+                    <br/>
+                    <button class="btn-primary btn-lg Button" ng-click="uploadFile()">upload</button>
                   </div>
                 </section>
               </fieldset>
