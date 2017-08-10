@@ -34,14 +34,52 @@
           <small class="text-primary">Please make sure the excel matches the correct standards.</small>
         </h1>
         <div jarvis-widget id="basic-form-elements" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
-          <div class="widget-body" style="height: 230px;">
-            <div class="demo-btns custom-spinner" style="position: absolute; margin: 2% 51%; z-index: 9;" ng-if="isUploading">
+          <div class="widget-body" style="height: 65vh">
+            <div class="demo-btns custom-spinner" style="position: absolute; margin: 10% 51%; z-index: 9;" ng-if="isUploading">
               <p>
                 <b>uploading...</b>
               </p>
               <a href-void class="btn bg-color-red txt-color-white"><i class="fa fa-gear fa-4x fa-spin"></i></a>
             </div>
-            <form class="smart-form" ng-if="!isUploading">
+            <form id="smart-form-register" class="smart-form" data-smart-registration-form ng-if="!isUploading">
+              <header>
+                Upload information
+              </header>
+
+              <fieldset>
+                <section>
+                  <label class="input"> <i class="icon-append fa fa-cube"></i>
+                <input type="text" name="username" placeholder="Product Name">
+                <b class="tooltip tooltip-bottom-right">Needed to enter product name</b> </label>
+                </section>
+
+
+                <section>
+                  <label class="input"> <i class="icon-append fa fa-cubes"></i>
+                <input type="email" name="email" placeholder="Product Batch">
+                <b class="tooltip tooltip-bottom-right">Needed to enter product batch</b> </label>
+                </section>
+              </fieldset>
+
+              <fieldset>
+                <div class="row">
+                  <section class="col col-6">
+                    <label class="input">
+                    <input type="text" name="firstname" placeholder="Manufacturing Data" ng-model="registration.firstname">
+                </label>
+                  </section>
+                  <section class="col col-6">
+                    <label class="input">
+                    <input type="text" name="lastname" placeholder="Expiry Date"  ng-model="registration.lastname">
+                </label>
+                  </section>
+                </div>
+
+                <section>
+                  <input type="checkbox" name="terms" id="terms">
+                  <i></i>Map extra Information</label>
+                </section>
+              </fieldset>
               <fieldset>
                 <section>
                   <label class="label">Select Excel</label>
