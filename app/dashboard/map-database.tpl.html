@@ -33,8 +33,43 @@
           Database Adapter<br>
           <small class="text-primary">Select the database fields to sync the database.</small>
         </h1>
-        <div jarvis-widget id="basic-form-elements" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false">
+        <div class="widget-body">
 
+          <form class="smart-form">
+            <fieldset data-ng-repeat="choice in choices">
+              <div class="row">
+                <section class="col col-2">
+                  <label class="select">
+                <select>
+                  <option>String</option>
+                  <option>Int</option>
+                  <option>Float</option>
+                  <option>Numeric</option>
+                  <option>Boolean</option>
+                </select>
+                      </label>
+                </section>
+                <section class="col col-2">
+                  <label class="input">
+                <input type="text" ng-model="choice.name" name="" placeholder="Your database field">
+                      </label>
+                </section>
+                <section class="col col-2">
+                  <label class="input">
+                <input type="text" ng-model="choice.mappedName" name="" placeholder="Mapped database field">
+                      </label>
+                </section>
+                <a class="btn btn-default btn-sm" ng-show="$last" ng-click="removeChoice()">Remove</a>
+              </div>
+            </fieldset>
+            <fieldset>
+              <a class="btn btn-default btn-lg" href-void ng-click="addNewChoice()">Add fields</a>
+              <a class="btn btn-primary btn-default btn-lg" href-void>Sync fields</a>
+              <!--<div id="choicesDisplay">
+                {{ choices }}
+              </div>-->
+            </fieldset>
+          </form>
         </div>
       </div>
     </div>
