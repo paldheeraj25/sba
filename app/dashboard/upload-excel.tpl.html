@@ -84,9 +84,10 @@
                 <section>
                   <label class="label">Select Excel</label>
                   <div class="input input-file" cg-busy="myPromise">
-                    <span><input type="file" file-model="myFile" /></span>
+                    <span><input type="file" file-model="myFile" file-reader="fileContent" /></span>
                     <br/>
                     <button class="btn-primary btn-lg Button" ng-click="uploadFile()">upload</button>
+                    <div>{{fileContent}}</div>
                   </div>
                 </section>
               </fieldset>

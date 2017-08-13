@@ -6,6 +6,30 @@ angular.module('app.dashboard', [
 ])
 
   .config(function ($stateProvider) {
+    //firebaseconfig
+    // var config = {
+    //   apiKey: "AIzaSyBiQNOs0GGDXUrlriwsWvS2v-Z_mDj55bU",
+    //   authDomain: "sealedbit-3b63c.firebaseapp.com",
+    //   databaseURL: "https://sealedbit-3b63c.firebaseio.com",
+    //   projectId: "sealedbit-3b63c",
+    //   storageBucket: "sealedbit-3b63c.appspot.com",
+    //   messagingSenderId: "102951832251"
+    // };
+    // firebase.initializeApp(config);
+
+
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAmRyEnBCXIGnfE9lZaGkVXYv2hqHHrYEg",
+      authDomain: "fir-1-a158d.firebaseapp.com",
+      databaseURL: "https://fir-1-a158d.firebaseio.com",
+      projectId: "fir-1-a158d",
+      storageBucket: "fir-1-a158d.appspot.com",
+      messagingSenderId: "361620174806"
+    };
+    firebase.initializeApp(config);
+
+
     $stateProvider
       .state('app.dashboard', {
         url: '/dashboard',
@@ -79,14 +103,7 @@ angular.module('app.dashboard', [
         views: {
           "content@app": {
             templateUrl: 'app/dashboard/upload-excel.tpl.html',
-            controller: function ($scope, $timeout) {
-              $scope.uploadFile = function () {
-                $scope.isUploading = true;
-                $timeout(function () {
-                  $scope.isUploading = false;
-                }, 3000);
-              }
-            },
+            controller: 'UploadExcelController',
             resolve: {
               scripts: function (lazyScript) {
                 return lazyScript.register('build/vendor.ui.js')
@@ -197,6 +214,37 @@ angular.module('app.dashboard', [
 
       }
     }
+  }).directive('fileReader', function ($rootScope) {
+    return {
+      scope: {
+        fileReader: "="
+      },
+      link: function (scope, element, rootScope) {
+        scope.sealedBit = [];
+        $(element).on('change', function (changeEvent) {
+          var files = changeEvent.target.files;
+          if (files.length) {
+            var r = new FileReader();
+            r.onload = function (e) {
+              var contents = e.target.result;
+              scope.$apply(function () {
+                //scope.fileReader = contents;
+                var array = contents.split(',');
+                //json logic
+                var csv_data = contents;
+                Papa.parse(contents, {
+                  complete: function (results) {
+                    console.log("Finished:", results.data);
+                    $rootScope.excelJsonData = results.data;
+                  }
+                });
+              });
+            };
+            r.readAsText(files[0]);
+          }
+        });
+      }
+    };
   })
   .directive('fileModel', ['$parse', function ($parse) {
     return {

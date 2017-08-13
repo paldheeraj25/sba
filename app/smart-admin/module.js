@@ -49,7 +49,17 @@ angular.module('app.smartAdmin').config(function ($stateProvider) {
         }
       }
     })
-
+    .state('app.smartAdmin.user-managment', {
+      url: '/user-managment',
+      data: {
+        title: 'User Management'
+      },
+      views: {
+        "content@app": {
+          templateUrl: 'app/misc/views/blank.html'
+        }
+      }
+    })
     .state('app.smartAdmin.prebuiltSkins', {
       url: '/prebuilt-skins',
       data: {
