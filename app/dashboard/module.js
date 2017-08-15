@@ -2,21 +2,11 @@
 
 angular.module('app.dashboard', [
   'ui.router',
-  'ngResource'
+  'ngResource',
+  'firebase'
 ])
 
   .config(function ($stateProvider) {
-    //firebaseconfig
-    // var config = {
-    //   apiKey: "AIzaSyBiQNOs0GGDXUrlriwsWvS2v-Z_mDj55bU",
-    //   authDomain: "sealedbit-3b63c.firebaseapp.com",
-    //   databaseURL: "https://sealedbit-3b63c.firebaseio.com",
-    //   projectId: "sealedbit-3b63c",
-    //   storageBucket: "sealedbit-3b63c.appspot.com",
-    //   messagingSenderId: "102951832251"
-    // };
-    // firebase.initializeApp(config);
-
 
     // Initialize Firebase
     var config = {
@@ -53,6 +43,22 @@ angular.module('app.dashboard', [
         data: {
           title: 'Dashboard Social'
         }
+      }).state('app.products', {
+        url: '/products',
+        views: {
+          "content@app": {
+            controller: 'ProductsCntroller',
+            templateUrl: 'app/dashboard/products.html',
+            resolve: {
+              scripts: function (lazyScript) {
+                return lazyScript.register('build/vendor.ui.js')
+              }
+            }
+          }
+        },
+        data: {
+          title: 'Dashboard Social'
+        }
       }).state('app.data-analytics', {
         url: '/data-analytics',
         views: {
@@ -67,7 +73,7 @@ angular.module('app.dashboard', [
           }
         },
         data: {
-          title: 'Dashboard Upload Excel'
+          title: 'Dashboard Social'
         }
       })
       .state('app.map-database', {
