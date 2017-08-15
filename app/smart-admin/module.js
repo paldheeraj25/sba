@@ -66,6 +66,23 @@ angular.module('app.smartAdmin').config(function ($stateProvider) {
         }
       }
     })
+    .state('app.smartAdmin.user-managment-list', {
+      url: '/user-managment-list',
+      data: {
+        title: 'User Management List'
+      },
+      views: {
+        "content@app": {
+          controller: 'UserListController',
+          templateUrl: 'app/smart-admin/views/user-list.html',
+          resolve: {
+            scripts: function (lazyScript) {
+              return lazyScript.register('build/vendor.ui.js')
+            }
+          }
+        }
+      }
+    })
     .state('app.smartAdmin.prebuiltSkins', {
       url: '/prebuilt-skins',
       data: {

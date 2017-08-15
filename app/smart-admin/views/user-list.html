@@ -1,0 +1,72 @@
+<div id="content">
+
+  <!-- row -->
+  <div class="row">
+
+    <!-- col -->
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+      <h1 class="page-title txt-color-blueDark">
+        <!-- PAGE HEADER --><i class="fa-fw fa fa-home"></i> Dashboard <span>>
+							Products </span></h1>
+    </div>
+    <!-- end col -->
+
+  </div>
+  <!-- end row -->
+
+  <!--
+    The ID "widget-grid" will start to initialize all widgets below
+    You do not need to use widgets if you dont want to. Simply remove
+    the <section></section> and you can use wells or panels instead
+    -->
+
+  <!-- widget grid -->
+  <section id="widget-grid" class="">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h1 class="page-title txt-color-blueDark text-center well">
+
+          <!-- PAGE HEADER -->
+          Products<br>
+        </h1>
+        <div jarvis-widget id="normal-table-widget" data-widget-color="blueDark" data-widget-editbutton="false">
+          <header>
+            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+
+            <h2>User List</h2>
+          </header>
+          <div>
+            <div class="widget-body">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>User Name</th>
+                      <th>Email</th>
+                      <th>Role</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="usr in user">
+                      <td>{{usr.name}}</td>
+                      <td>{{usr.username}}</td>
+                      <td>{{usr.email}}</td>
+                      <td>{{usr.role}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </section>
+  <!-- end widget grid -->
+
+</div>
