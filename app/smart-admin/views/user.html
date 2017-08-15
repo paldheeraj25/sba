@@ -1,0 +1,121 @@
+<div id="content">
+
+
+  <div class="row">
+    <big-breadcrumbs items="['User Management', 'Create']" icon="home" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></big-breadcrumbs>
+  </div>
+
+  <!--
+        The ID "widget-grid" will start to initialize all widgets below
+        You do not need to use widgets if you dont want to. Simply remove
+        the <section></section> and you can use wells or panels instead
+        -->
+  <!-- widget grid -->
+  <section id="widget-grid" data-widget-grid>
+    <!-- row -->
+    <div class="row">
+      <!-- NEW WIDGET START -->
+      <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <!-- Widget ID (each widget will need unique ID)-->
+        <!-- Widget ID (each widget will need unique ID)-->
+        <div jarvis-widget id="wid-id-4" data-widget-editbutton="false" data-widget-custombutton="false">
+          <!-- widget options:
+        usage: <div jarvis-widget id="wid-id-0" data-widget-editbutton="false">
+        
+        data-widget-colorbutton="false"	
+        data-widget-editbutton="false"
+        data-widget-togglebutton="false"
+        data-widget-deletebutton="false"
+        data-widget-fullscreenbutton="false"
+        data-widget-custombutton="false"
+        data-widget-collapsed="true" 
+        data-widget-sortable="false"
+        
+    -->
+          <header>
+            <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+
+            <h2>Registration form </h2>
+
+          </header>
+
+          <!-- widget div-->
+          <div>
+
+
+            <!-- widget content -->
+            <div class="widget-body no-padding">
+              <form id="smart-form-register" class="smart-form" data-smart-registration-form>
+
+                <fieldset>
+                  <section>
+                    <label class="input"> <i class="icon-append fa fa-user"></i>
+                <input type="text" name="username" placeholder="Username" ng-model="user.username">
+                <b class="tooltip tooltip-bottom-right">Needed to enter the website</b> </label>
+                  </section>
+
+
+                  <section>
+                    <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
+                <input type="email" name="email" placeholder="Email address" ng-model="user.email">
+                <b class="tooltip tooltip-bottom-right">Needed to verify your account</b> </label>
+                  </section>
+
+                  <section>
+                    <label class="input"> <i class="icon-append fa fa-lock"></i>
+                <input type="password" name="password" placeholder="Password" id="password" ng-model="user.password">
+                <b class="tooltip tooltip-bottom-right">Don't forget your password</b> </label>
+                  </section>
+
+                </fieldset>
+
+                <fieldset>
+                  <div class="row">
+                    <section class="col col-6">
+                      <label class="input">
+                    <input type="text" name="firstname" placeholder="First name" ng-model="user.firstname">
+                </label>
+                    </section>
+                    <section class="col col-6">
+                      <label class="input">
+                    <input type="text" name="lastname" placeholder="Last name"  ng-model="user.lastname">
+                </label>
+                    </section>
+                  </div>
+
+                  <div class="row">
+                    <section class="col col-6">
+                      <label class="select">
+                    <select name="gender" ng-model="user.role">
+                        <option selected="" disabled="">Role</option>
+                        <option ng-repeat="rl in role">{{rl.type}}</option>
+                    </select> <i></i> </label>
+                    </section>
+                    <section class="col col-6">
+                      <label class="input"> <i class="icon-append fa fa-calendar"></i>
+                    <input type="text" name="request" placeholder="Request activation on" ng-model="user.activationDate"
+                           data-smart-datepicker data-dateformat='dd/mm/yy' ng-model="registration.date">
+                </label>
+                    </section>
+                  </div>
+                </fieldset>
+                <footer>
+                  <button type="submit" class="btn btn-primary" ng-click="creaRole(user)">Submit</button>
+                </footer>
+              </form>
+              <!-- end widget content -->
+
+            </div>
+            <!-- end widget div -->
+
+          </div>
+          <!-- end widget -->
+      </article>
+      <!-- WIDGET END -->
+      </div>
+      <!-- end row -->
+      <!-- row -->
+      <!-- end row -->
+  </section>
+  <!-- end widget grid -->
+  </div>

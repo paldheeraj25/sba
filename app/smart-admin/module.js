@@ -56,7 +56,13 @@ angular.module('app.smartAdmin').config(function ($stateProvider) {
       },
       views: {
         "content@app": {
-          templateUrl: 'app/misc/views/blank.html'
+          controller: 'UserController',
+          templateUrl: 'app/smart-admin/views/user.html',
+          resolve: {
+            scripts: function (lazyScript) {
+              return lazyScript.register('build/vendor.ui.js')
+            }
+          }
         }
       }
     })
