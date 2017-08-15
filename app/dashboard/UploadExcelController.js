@@ -24,10 +24,10 @@ angular.module('app.dashboard').controller('UploadExcelController', function ($s
         databaseRef.child(v).set(k);
       }
     });
-    // $scope.isUploading = true;
-    // $timeout(function () {
-    //   $scope.isUploading = false;
-    // }, 3000);
+    $scope.isUploading = true;
+    $timeout(function () {
+      $scope.isUploading = false;
+    }, 3000);
   }
 
 });
