@@ -45,6 +45,7 @@
                       <th>User Name</th>
                       <th>Email</th>
                       <th>Role</th>
+                      <th>Delet</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -53,6 +54,7 @@
                       <td>{{usr.username}}</td>
                       <td>{{usr.email}}</td>
                       <td>{{usr.role}}</td>
+                      <td><a ng-click="deletUser(usr)"><i class="fa fa-lg fa-fw fa-times txt-color-blue"></i> </a></td>
                     </tr>
                   </tbody>
                 </table>
