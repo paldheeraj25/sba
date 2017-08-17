@@ -16,6 +16,10 @@ angular.module('app.smartAdmin').controller('UserController', function ($scope, 
 
   $scope.creaRole = function (user) {
     delete user.initialized;
+    if (user.active) {
+      console.log(user.active)
+      user.active = 1;
+    }
     databaseUserRef.push().set(user);
   };
 
