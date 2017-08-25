@@ -4,7 +4,8 @@ angular.module('app.dashboard', [
   'ui.router',
   'ngResource',
   'firebase',
-  'naif.base64'
+  'naif.base64',
+  'upload-excel'
 ])
 
   .config(function ($stateProvider) {
@@ -105,23 +106,7 @@ angular.module('app.dashboard', [
         data: {
           title: 'Dashboard Upload Excel'
         }
-      }).state('app.dashboard-upload-excel', {
-        url: '/dashboard-upload-excel',
-        views: {
-          "content@app": {
-            templateUrl: 'app/dashboard/upload-excel/views/upload-excel.tpl.html',
-            controller: 'UploadExcelController',
-            resolve: {
-              scripts: function (lazyScript) {
-                return lazyScript.register('build/vendor.ui.js')
-              }
-            }
-          }
-        },
-        data: {
-          title: 'Dashboard Upload Excel'
-        }
-      });
+      })
   })
   .directive('flotPieChartA', function () {
     return {
