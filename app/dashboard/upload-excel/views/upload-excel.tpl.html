@@ -41,7 +41,7 @@
               </p>
               <a href-void class="btn bg-color-red txt-color-white"><i class="fa fa-gear fa-4x fa-spin"></i></a>
             </div>
-            <form id="smart-form-register" class="smart-form" data-smart-registration-form ng-if="!isUploading">
+            <form id="smart-form-register" name="form" class="smart-form" data-smart-registration-form ng-if="!isUploading">
               <header>
                 Upload information
               </header>
@@ -82,13 +82,13 @@
               </fieldset>
               <fieldset>
                 <section>
-                  <label class="label">Select Excel</label>
+                  <label class="label">Select Excel - {{fileName}}</label>
                   <div class="input input-file" cg-busy="myPromise">
-                    <span><input type="file" file-model="myFile" file-reader="fileContent" /></span>
+                    <input type="file" ng-model="file" name="file" base-sixty-four-input required onload="onLoad" accept=".csv">
                     <br/>
                     <button class="btn-primary btn-lg Button" ng-click="uploadFile()">upload</button>
-                    <div>{{fileContent}}</div>
                   </div>
+                  <!--<div>{{fileContent}}</div>-->
                 </section>
               </fieldset>
             </form>

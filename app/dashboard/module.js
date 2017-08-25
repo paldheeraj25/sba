@@ -3,7 +3,8 @@
 angular.module('app.dashboard', [
   'ui.router',
   'ngResource',
-  'firebase'
+  'firebase',
+  'naif.base64'
 ])
 
   .config(function ($stateProvider) {
@@ -108,7 +109,7 @@ angular.module('app.dashboard', [
         url: '/dashboard-upload-excel',
         views: {
           "content@app": {
-            templateUrl: 'app/dashboard/upload-excel.tpl.html',
+            templateUrl: 'app/dashboard/upload-excel/views/upload-excel.tpl.html',
             controller: 'UploadExcelController',
             resolve: {
               scripts: function (lazyScript) {
