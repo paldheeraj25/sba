@@ -1,11 +1,16 @@
 'use strict';
 
-angular.module('app.dashboard').controller('DataAnalyticsController', function ($scope, $interval, CalendarEvent) {
+angular.module('app.dashboard').controller('DataAnalyticsController', function ($scope, $state, $interval, CalendarEvent) {
 
-  // Live Feeds Widget Data And Display Controls
-  // Live Stats Tab
-
-
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      console.log(user);
+      // User is signed in.
+    } else {
+      // No user is signed in.
+      $state.go('login');
+    }
+  });
   function getFakeItem(index, prevValue) {
     var limitUp = Math.min(100, prevValue + 5),
       limitDown = Math.abs(prevValue - 5);

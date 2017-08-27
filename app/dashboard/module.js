@@ -21,10 +21,16 @@ angular.module('app.dashboard', [
     };
     firebase.initializeApp(config);
 
-
     $stateProvider
       .state('app.dashboard', {
         url: '/dashboard',
+        params: { auth: null },
+        resolve:
+        {
+          Auth: function ($stateParams) {
+            return $stateParams.auth;
+          }
+        },
         views: {
           "content@app": {
             controller: 'DashboardCtrl',
@@ -63,6 +69,7 @@ angular.module('app.dashboard', [
         }
       }).state('app.data-analytics', {
         url: '/data-analytics',
+        params: { auth: null },
         views: {
           "content@app": {
             controller: 'DataAnalyticsController',
