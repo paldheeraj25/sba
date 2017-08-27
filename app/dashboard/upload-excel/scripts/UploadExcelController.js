@@ -1,6 +1,18 @@
 'use strict';
 
 angular.module('app.dashboard').controller('UploadExcelController', function ($scope, $timeout, $rootScope, $firebaseObject, $http, APP_CONFIG) {
+
+  //getting the user token
+  firebase.auth().currentUser.getToken(/* forceRefresh */ true).then(function (idToken) {
+    // Send token to your backend via HTTPS
+    // ...
+    console.log('this is the token');
+    console.log(idToken);
+  }).catch(function (error) {
+    // Handle error
+  });
+
+  //
   var databaseRef = firebase.database().ref().child('productshoe');
   var base64Csv;
   $scope.onChange = function (e, fileList) {

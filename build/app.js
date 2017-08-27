@@ -6249,6 +6249,18 @@ angular.module('app').factory('Todo', function (Restangular, APP_CONFIG, $httpBa
 'use strict';
 
 angular.module('app.dashboard').controller('UploadExcelController', function ($scope, $timeout, $rootScope, $firebaseObject, $http, APP_CONFIG) {
+
+  //getting the user token
+  firebase.auth().currentUser.getToken(/* forceRefresh */ true).then(function (idToken) {
+    // Send token to your backend via HTTPS
+    // ...
+    console.log('this is the token');
+    console.log(idToken);
+  }).catch(function (error) {
+    // Handle error
+  });
+
+  //
   var databaseRef = firebase.database().ref().child('productshoe');
   var base64Csv;
   $scope.onChange = function (e, fileList) {
@@ -8866,153 +8878,6 @@ angular.module('app.tables').directive('jqGrid', function ($compile) {
         }
     }
 });
-"use strict";
-
-angular.module('SmartAdmin.Layout').directive('fullScreen', function(){
-    return {
-        restrict: 'A',
-        link: function(scope, element){
-            var $body = $('body');
-            var toggleFullSceen = function(e){
-                if (!$body.hasClass("full-screen")) {
-                    $body.addClass("full-screen");
-                    if (document.documentElement.requestFullscreen) {
-                        document.documentElement.requestFullscreen();
-                    } else if (document.documentElement.mozRequestFullScreen) {
-                        document.documentElement.mozRequestFullScreen();
-                    } else if (document.documentElement.webkitRequestFullscreen) {
-                        document.documentElement.webkitRequestFullscreen();
-                    } else if (document.documentElement.msRequestFullscreen) {
-                        document.documentElement.msRequestFullscreen();
-                    }
-                } else {
-                    $body.removeClass("full-screen");
-                    if (document.exitFullscreen) {
-                        document.exitFullscreen();
-                    } else if (document.mozCancelFullScreen) {
-                        document.mozCancelFullScreen();
-                    } else if (document.webkitExitFullscreen) {
-                        document.webkitExitFullscreen();
-                    }
-                }
-            };
-
-            element.on('click', toggleFullSceen);
-
-        }
-    }
-});
-"use strict";
-
-angular.module('SmartAdmin.Layout').directive('minifyMenu', function(){
-    return {
-        restrict: 'A',
-        link: function(scope, element){
-                var $body = $('body');
-            var minifyMenu = function() {
-                if (!$body.hasClass("menu-on-top")) {
-                    $body.toggleClass("minified");
-                    $body.removeClass("hidden-menu");
-                    $('html').removeClass("hidden-menu-mobile-lock");
-                }
-            };
-
-            element.on('click', minifyMenu);
-        }
-    }
-})
-'use strict';
-
-angular.module('SmartAdmin.Layout').directive('reloadState', function ($rootScope) {
-    return {
-        restrict: 'A',
-        compile: function (tElement, tAttributes) {
-            tElement.removeAttr('reload-state data-reload-state');
-            tElement.on('click', function (e) {
-                $rootScope.$state.transitionTo($rootScope.$state.current, $rootScope.$stateParams, {
-                    reload: true,
-                    inherit: false,
-                    notify: true
-                });
-                e.preventDefault();
-            })
-        }
-    }
-});
-
-"use strict";
-
-angular.module('SmartAdmin.Layout').directive('resetWidgets', function($state){
-
-    return {
-        restrict: 'A',
-        link: function(scope, element){
-            element.on('click', function(){
-                $.SmartMessageBox({
-                    title : "<i class='fa fa-refresh' style='color:green'></i> Clear Local Storage",
-                    content : "Would you like to RESET all your saved widgets and clear LocalStorage?1",
-                    buttons : '[No][Yes]'
-                }, function(ButtonPressed) {
-                    if (ButtonPressed == "Yes" && localStorage) {
-                        localStorage.clear();
-                        location.reload()
-                    }
-                });
-
-            });
-        }
-    }
-
-});
-
-'use strict';
-
-angular.module('SmartAdmin.Layout').directive('searchMobile', function () {
-    return {
-        restrict: 'A',
-        compile: function (element, attributes) {
-            element.removeAttr('search-mobile data-search-mobile');
-
-            element.on('click', function (e) {
-                $('body').addClass('search-mobile');
-                e.preventDefault();
-            });
-
-            $('#cancel-search-js').on('click', function (e) {
-                $('body').removeClass('search-mobile');
-                e.preventDefault();
-            });
-        }
-    }
-});
-"use strict";
-
-angular.module('SmartAdmin.Layout').directive('toggleMenu', function(){
-    return {
-        restrict: 'A',
-        link: function(scope, element){
-            var $body = $('body');
-
-            var toggleMenu = function(){
-                if (!$body.hasClass("menu-on-top")){
-                    $('html').toggleClass("hidden-menu-mobile-lock");
-                    $body.toggleClass("hidden-menu");
-                    $body.removeClass("minified");
-                } else if ( $body.hasClass("menu-on-top") && $body.hasClass("mobile-view-activated") ) {
-                    $('html').toggleClass("hidden-menu-mobile-lock");
-                    $body.toggleClass("hidden-menu");
-                    $body.removeClass("minified");
-                }
-            };
-
-            element.on('click', toggleMenu);
-
-            scope.$on('requestToggleMenu', function(){
-                toggleMenu();
-            });
-        }
-    }
-});
 'use strict';
 
 angular.module('SmartAdmin.Layout').directive('bigBreadcrumbs', function () {
@@ -10063,6 +9928,153 @@ angular.module('SmartAdmin.Layout').directive('stateBreadcrumbs', function ($roo
         }
     }
 });
+"use strict";
+
+angular.module('SmartAdmin.Layout').directive('fullScreen', function(){
+    return {
+        restrict: 'A',
+        link: function(scope, element){
+            var $body = $('body');
+            var toggleFullSceen = function(e){
+                if (!$body.hasClass("full-screen")) {
+                    $body.addClass("full-screen");
+                    if (document.documentElement.requestFullscreen) {
+                        document.documentElement.requestFullscreen();
+                    } else if (document.documentElement.mozRequestFullScreen) {
+                        document.documentElement.mozRequestFullScreen();
+                    } else if (document.documentElement.webkitRequestFullscreen) {
+                        document.documentElement.webkitRequestFullscreen();
+                    } else if (document.documentElement.msRequestFullscreen) {
+                        document.documentElement.msRequestFullscreen();
+                    }
+                } else {
+                    $body.removeClass("full-screen");
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen();
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    }
+                }
+            };
+
+            element.on('click', toggleFullSceen);
+
+        }
+    }
+});
+"use strict";
+
+angular.module('SmartAdmin.Layout').directive('minifyMenu', function(){
+    return {
+        restrict: 'A',
+        link: function(scope, element){
+                var $body = $('body');
+            var minifyMenu = function() {
+                if (!$body.hasClass("menu-on-top")) {
+                    $body.toggleClass("minified");
+                    $body.removeClass("hidden-menu");
+                    $('html').removeClass("hidden-menu-mobile-lock");
+                }
+            };
+
+            element.on('click', minifyMenu);
+        }
+    }
+})
+'use strict';
+
+angular.module('SmartAdmin.Layout').directive('reloadState', function ($rootScope) {
+    return {
+        restrict: 'A',
+        compile: function (tElement, tAttributes) {
+            tElement.removeAttr('reload-state data-reload-state');
+            tElement.on('click', function (e) {
+                $rootScope.$state.transitionTo($rootScope.$state.current, $rootScope.$stateParams, {
+                    reload: true,
+                    inherit: false,
+                    notify: true
+                });
+                e.preventDefault();
+            })
+        }
+    }
+});
+
+"use strict";
+
+angular.module('SmartAdmin.Layout').directive('resetWidgets', function($state){
+
+    return {
+        restrict: 'A',
+        link: function(scope, element){
+            element.on('click', function(){
+                $.SmartMessageBox({
+                    title : "<i class='fa fa-refresh' style='color:green'></i> Clear Local Storage",
+                    content : "Would you like to RESET all your saved widgets and clear LocalStorage?1",
+                    buttons : '[No][Yes]'
+                }, function(ButtonPressed) {
+                    if (ButtonPressed == "Yes" && localStorage) {
+                        localStorage.clear();
+                        location.reload()
+                    }
+                });
+
+            });
+        }
+    }
+
+});
+
+'use strict';
+
+angular.module('SmartAdmin.Layout').directive('searchMobile', function () {
+    return {
+        restrict: 'A',
+        compile: function (element, attributes) {
+            element.removeAttr('search-mobile data-search-mobile');
+
+            element.on('click', function (e) {
+                $('body').addClass('search-mobile');
+                e.preventDefault();
+            });
+
+            $('#cancel-search-js').on('click', function (e) {
+                $('body').removeClass('search-mobile');
+                e.preventDefault();
+            });
+        }
+    }
+});
+"use strict";
+
+angular.module('SmartAdmin.Layout').directive('toggleMenu', function(){
+    return {
+        restrict: 'A',
+        link: function(scope, element){
+            var $body = $('body');
+
+            var toggleMenu = function(){
+                if (!$body.hasClass("menu-on-top")){
+                    $('html').toggleClass("hidden-menu-mobile-lock");
+                    $body.toggleClass("hidden-menu");
+                    $body.removeClass("minified");
+                } else if ( $body.hasClass("menu-on-top") && $body.hasClass("mobile-view-activated") ) {
+                    $('html').toggleClass("hidden-menu-mobile-lock");
+                    $body.toggleClass("hidden-menu");
+                    $body.removeClass("minified");
+                }
+            };
+
+            element.on('click', toggleMenu);
+
+            scope.$on('requestToggleMenu', function(){
+                toggleMenu();
+            });
+        }
+    }
+});
 'use strict';
 
 angular.module('SmartAdmin.Layout').factory('lazyScript', function($q, $http){
@@ -10685,97 +10697,6 @@ angular.module('SmartAdmin.Forms').directive('bootstrapTogglingForm', function()
 });
 'use strict';
 
-angular.module('SmartAdmin.Forms').directive('smartCkEditor', function () {
-    return {
-        restrict: 'A',
-        compile: function ( tElement) {
-            tElement.removeAttr('smart-ck-editor data-smart-ck-editor');
-            //CKEDITOR.basePath = 'bower_components/ckeditor/';
-
-            CKEDITOR.replace( tElement.attr('name'), { height: '380px', startupFocus : true} );
-        }
-    }
-});
-'use strict';
-
-angular.module('SmartAdmin.Forms').directive('smartDestroySummernote', function () {
-    return {
-        restrict: 'A',
-        compile: function (tElement, tAttributes) {
-            tElement.removeAttr('smart-destroy-summernote data-smart-destroy-summernote')
-            tElement.on('click', function() {
-                angular.element(tAttributes.smartDestroySummernote).destroy();
-            })
-        }
-    }
-});
-
-'use strict';
-
-angular.module('SmartAdmin.Forms').directive('smartEditSummernote', function () {
-    return {
-        restrict: 'A',
-        compile: function (tElement, tAttributes) {
-            tElement.removeAttr('smart-edit-summernote data-smart-edit-summernote');
-            tElement.on('click', function(){
-                angular.element(tAttributes.smartEditSummernote).summernote({
-                    focus : true
-                });  
-            });
-        }
-    }
-});
-
-'use strict';
-
-angular.module('SmartAdmin.Forms').directive('smartMarkdownEditor', function () {
-    return {
-        restrict: 'A',
-        compile: function (element, attributes) {
-            element.removeAttr('smart-markdown-editor data-smart-markdown-editor')
-
-            var options = {
-                autofocus:false,
-                savable:true,
-                fullscreen: {
-                    enable: false
-                }
-            };
-
-            if(attributes.height){
-                options.height = parseInt(attributes.height);
-            }
-
-            element.markdown(options);
-        }
-    }
-});
-
-'use strict';
-
-angular.module('SmartAdmin.Forms').directive('smartSummernoteEditor', function (lazyScript) {
-    return {
-        restrict: 'A',
-        compile: function (tElement, tAttributes) {
-            tElement.removeAttr('smart-summernote-editor data-smart-summernote-editor');
-
-            var options = {
-                focus : true,
-                tabsize : 2
-            };
-
-            if(tAttributes.height){
-                options.height = tAttributes.height;
-            }
-
-            lazyScript.register('build/vendor.ui.js').then(function(){
-                tElement.summernote(options);                
-            });
-        }
-    }
-});
-'use strict';
-
 angular.module('SmartAdmin.Forms').directive('smartCheckoutForm', function (formsCommon, lazyScript) {
     return {
         restrict: 'A',
@@ -11181,6 +11102,97 @@ angular.module('SmartAdmin.Forms').directive('smartReviewForm', function (formsC
                     }
 
                 }, formsCommon.validateOptions));
+            });
+        }
+    }
+});
+'use strict';
+
+angular.module('SmartAdmin.Forms').directive('smartCkEditor', function () {
+    return {
+        restrict: 'A',
+        compile: function ( tElement) {
+            tElement.removeAttr('smart-ck-editor data-smart-ck-editor');
+            //CKEDITOR.basePath = 'bower_components/ckeditor/';
+
+            CKEDITOR.replace( tElement.attr('name'), { height: '380px', startupFocus : true} );
+        }
+    }
+});
+'use strict';
+
+angular.module('SmartAdmin.Forms').directive('smartDestroySummernote', function () {
+    return {
+        restrict: 'A',
+        compile: function (tElement, tAttributes) {
+            tElement.removeAttr('smart-destroy-summernote data-smart-destroy-summernote')
+            tElement.on('click', function() {
+                angular.element(tAttributes.smartDestroySummernote).destroy();
+            })
+        }
+    }
+});
+
+'use strict';
+
+angular.module('SmartAdmin.Forms').directive('smartEditSummernote', function () {
+    return {
+        restrict: 'A',
+        compile: function (tElement, tAttributes) {
+            tElement.removeAttr('smart-edit-summernote data-smart-edit-summernote');
+            tElement.on('click', function(){
+                angular.element(tAttributes.smartEditSummernote).summernote({
+                    focus : true
+                });  
+            });
+        }
+    }
+});
+
+'use strict';
+
+angular.module('SmartAdmin.Forms').directive('smartMarkdownEditor', function () {
+    return {
+        restrict: 'A',
+        compile: function (element, attributes) {
+            element.removeAttr('smart-markdown-editor data-smart-markdown-editor')
+
+            var options = {
+                autofocus:false,
+                savable:true,
+                fullscreen: {
+                    enable: false
+                }
+            };
+
+            if(attributes.height){
+                options.height = parseInt(attributes.height);
+            }
+
+            element.markdown(options);
+        }
+    }
+});
+
+'use strict';
+
+angular.module('SmartAdmin.Forms').directive('smartSummernoteEditor', function (lazyScript) {
+    return {
+        restrict: 'A',
+        compile: function (tElement, tAttributes) {
+            tElement.removeAttr('smart-summernote-editor data-smart-summernote-editor');
+
+            var options = {
+                focus : true,
+                tabsize : 2
+            };
+
+            if(tAttributes.height){
+                options.height = tAttributes.height;
+            }
+
+            lazyScript.register('build/vendor.ui.js').then(function(){
+                tElement.summernote(options);                
             });
         }
     }
