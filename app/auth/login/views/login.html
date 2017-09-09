@@ -60,7 +60,7 @@
                     data-email
                     data-message-required="Please enter your email address"
                     data-message-email="Please enter a VALID email address"
-                    data-ng-model="user.email">
+                    data-ng-model="login.user.email">
                   <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i>
                       Please enter email address/username</b></label>
               </section>
@@ -73,7 +73,7 @@
                     data-minlength="3"
                     data-maxnlength="20"
                     data-message="Please enter your email password",
-                    data-ng-model="user.password">
+                    data-ng-model="login.user.password">
                   <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter
                           your password</b> </label>
 
@@ -88,7 +88,7 @@
               </section>
             </fieldset>
             <footer>
-              <button data-ng-click="singIn(user)" class="btn btn-primary">
+              <button data-ng-click="login.singIn(login.user)" class="btn btn-primary">
                                 Sign in
                             </button>
             </footer>

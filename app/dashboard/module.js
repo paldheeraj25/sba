@@ -3,23 +3,11 @@
 angular.module('app.dashboard', [
   'ui.router',
   'ngResource',
-  'firebase',
   'naif.base64',
   'upload-excel'
 ])
 
   .config(function ($stateProvider) {
-
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyAmRyEnBCXIGnfE9lZaGkVXYv2hqHHrYEg",
-      authDomain: "fir-1-a158d.firebaseapp.com",
-      databaseURL: "https://fir-1-a158d.firebaseio.com",
-      projectId: "fir-1-a158d",
-      storageBucket: "fir-1-a158d.appspot.com",
-      messagingSenderId: "361620174806"
-    };
-    firebase.initializeApp(config);
 
     $stateProvider
       .state('app.dashboard', {

@@ -12,7 +12,8 @@ angular.module('app.layout', ['ui.router'])
         views: {
           root: {
             templateUrl: 'app/layout/layout.tpl.html',
-            controller: 'LayoutController'
+            controller: 'LayoutController',
+            controllerAs: 'layout'
           }
         }
       });

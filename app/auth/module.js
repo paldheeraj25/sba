@@ -1,21 +1,10 @@
 "use strict";
 
 angular.module('app.auth', [
-  'ui.router'
-  //        ,
-  //        'ezfb',
-  //        'googleplus'
+  'ui.router',
+  'auth.module'
 ]).config(function ($stateProvider
-  //        , ezfbProvider
-  //        , GooglePlusProvider
 ) {
-  //        GooglePlusProvider.init({
-  //            clientId: authKeys.googleClientId
-  //        });
-  //
-  //        ezfbProvider.setInitParams({
-  //            appId: authKeys.facebookAppId
-  //        });
   $stateProvider.state('realLogin', {
     url: '/real-login',
 
@@ -30,28 +19,6 @@ angular.module('app.auth', [
     }
 
   })
-
-    .state('login', {
-      url: '/login',
-      views: {
-        root: {
-          templateUrl: 'app/auth/login/views/login.html',
-          controller: 'LoginController'
-        }
-      },
-      data: {
-        title: 'Login',
-        htmlId: 'extr-page'
-      },
-      resolve: {
-        srcipts: function (lazyScript) {
-          return lazyScript.register([
-            'build/vendor.ui.js'
-          ])
-
-        }
-      }
-    })
 
     .state('register', {
       url: '/register',
