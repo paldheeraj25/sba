@@ -21,8 +21,7 @@
       },
       data: {
         title: 'Dashboard Upload Excel'
-      },
-      helpPageUrl: 'infrastructure/environment-types/'
+      }
     };
 
     // Register states with the UI Router State Provider

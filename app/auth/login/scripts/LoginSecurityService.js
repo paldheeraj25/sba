@@ -5,7 +5,7 @@
   /* jshint validthis:true */
 
   // auth service to handle login
-  function LoginSecurityService($http, $location, $state) {
+  function LoginSecurityService($http, $location, $state, $localStorage) {
     var HOST = 'http://', BASE_URL = $location.host(), PORT = ':5012';
     var RequestUrl = HOST + BASE_URL + PORT;
 
@@ -21,6 +21,7 @@
 
       $http(req).then(function (data) {
         if (data) {
+          $localStorage.token = data.data.token;
           $state.go('app.dashboard');
         }
       }, function (err) {

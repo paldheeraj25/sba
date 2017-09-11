@@ -1,21 +1,7 @@
 'use strict';
 
-angular.module('app.dashboard').controller('UploadExcelController', function ($scope, $timeout, $rootScope, $firebaseObject, $http, APP_CONFIG) {
+angular.module('app.dashboard').controller('UploadExcelController', function ($scope, $timeout, $rootScope, $http, APP_CONFIG, uploadExcelDatService) {
 
-  //getting the user token
-  var idToken;
-  firebase.auth().currentUser.getToken(/* forceRefresh */ true).then(function (token) {
-    // Send token to your backend via HTTPS
-    // ...
-    console.log('this is the token');
-    console.log(idToken);
-    idToken = token;
-  }).catch(function (error) {
-    // Handle error
-  });
-
-  //
-  var databaseRef = firebase.database().ref().child('productshoe');
   var base64Csv;
   $scope.onChange = function (e, fileList) {
   };
@@ -31,15 +17,12 @@ angular.module('app.dashboard').controller('UploadExcelController', function ($s
 
   $scope.uploadFile = function () {
     $scope.isUploading = true;
-    var req = {
-      method: 'POST',
-      url: APP_CONFIG.dataBaseUrl + '/upload',
-      data: { csv: base64Csv, idToken: idToken }
-    }
-
-    $http(req).then(function (data) {
-      $scope.isUploading = false;
+    uploadExcelDatService.uploadExcel(base64Csv).then(function (data) {
+      if (data) {
+        $scope.isUploading = false;
+      }
     });
+
   }
 
 });

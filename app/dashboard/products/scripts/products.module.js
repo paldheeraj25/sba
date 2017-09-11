@@ -5,32 +5,34 @@
   function registerStates(stateProvider) {
 
     // Infrastructure Provider - List State
-    var loginState = {
-      name: 'login',
-      url: '/login',
+    var productsListState = {
+      name: 'app.products-list',
+      url: '/products-list',
       views: {
-        root: {
-          templateUrl: 'app/auth/login/views/login.html',
-          controller: 'LoginController',
-          controllerAs: 'login',
+        "content@app": {
+          templateUrl: 'app/dashboard/products/views/products.tpl.html',
+          controller: 'productsController',
+          controllerAs: 'products',
           resolve: {
             srcipts: function (lazyScript) {
               return lazyScript.register([
                 'build/vendor.ui.js'
               ]);
+            },
+            products: function (productsDataService) {
+              return productsDataService.getProducts();
             }
           }
         }
       },
       data: {
-        title: 'Login',
-        htmlId: 'extr-page'
+
       },
     };
 
     // Register states with the UI Router State Provider
     stateProvider
-      .state(loginState);
+      .state(productsListState);
   }
 
   // Function which configures the module
@@ -38,8 +40,8 @@
     registerStates($stateProvider);
   }
 
-  // Auth Module declaration
-  var module = angular.module('auth.module', []);
+  // Products Module declaration
+  var module = angular.module('app.dashboard.products', []);
 
   // Configure the module
   module.config(configureModule);

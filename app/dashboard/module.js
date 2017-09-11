@@ -4,7 +4,8 @@ angular.module('app.dashboard', [
   'ui.router',
   'ngResource',
   'naif.base64',
-  'upload-excel'
+  'upload-excel',
+  'app.dashboard.products'
 ])
 
   .config(function ($stateProvider) {
@@ -34,22 +35,6 @@ angular.module('app.dashboard', [
         views: {
           "content@app": {
             templateUrl: 'app/dashboard/social-wall.html'
-          }
-        },
-        data: {
-          title: 'Dashboard Social'
-        }
-      }).state('app.products', {
-        url: '/products',
-        views: {
-          "content@app": {
-            controller: 'ProductsCntroller',
-            templateUrl: 'app/dashboard/products.html',
-            resolve: {
-              scripts: function (lazyScript) {
-                return lazyScript.register('build/vendor.ui.js')
-              }
-            }
           }
         },
         data: {

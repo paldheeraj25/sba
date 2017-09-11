@@ -24,11 +24,6 @@
   <section id="widget-grid" class="">
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <h1 class="page-title txt-color-blueDark text-center well">
-
-          <!-- PAGE HEADER -->
-          Products<br>
-        </h1>
         <div jarvis-widget id="normal-table-widget" data-widget-color="blueDark" data-widget-editbutton="false">
           <header>
             <span class="widget-icon"> <i class="fa fa-table"></i> </span>
@@ -48,8 +43,8 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="prod in products">
-                      <td>{{prod.id}}</td>
+                    <tr ng-repeat="prod in products.products">
+                      <td>{{prod.tagid}}</td>
                       <td>{{prod.name}}</td>
                       <td>{{prod.date}}</td>
                       <td>{{prod.expiry}}</td>
