@@ -646,7 +646,8 @@ angular.module('app.dashboard', [
   'ngResource',
   'naif.base64',
   'upload-excel',
-  'app.dashboard.products'
+  'app.dashboard.products',
+  'angularUtils.directives.dirPagination'
 ])
 
   .config(function ($stateProvider) {
@@ -1637,10 +1638,11 @@ angular.module('app.smartAdmin').config(function ($stateProvider) {
       views: {
         "content@app": {
           controller: 'UserController',
+          controllerAs: 'user',
           templateUrl: 'app/smart-admin/views/user.html',
           resolve: {
             scripts: function (lazyScript) {
-              return lazyScript.register('build/vendor.ui.js')
+              return lazyScript.register('build/vendor.ui.js');
             }
           }
         }
@@ -2888,7 +2890,7 @@ $templateCache.put("app/layout/shortcut/shortcut.tpl.html","<div id=\"shortcut\"
 $templateCache.put("app/dashboard/chat/directives/aside-chat-widget.tpl.html","<ul>\r\n    <li>\r\n        <div class=\"display-users\">\r\n            <input class=\"form-control chat-user-filter\" placeholder=\"Filter\" type=\"text\">\r\n            <dl>\r\n                <dt>\r\n                    <a href=\"#\" class=\"usr\"\r\n                       data-chat-id=\"cha1\"\r\n                       data-chat-fname=\"Sadi\"\r\n                       data-chat-lname=\"Orlaf\"\r\n                       data-chat-status=\"busy\"\r\n                       data-chat-alertmsg=\"Sadi Orlaf is in a meeting. Please do not disturb!\"\r\n                       data-chat-alertshow=\"true\"\r\n                       popover-trigger=\"hover\"\r\n                       popover-placement=\"right\"\r\n                       smart-popover-html=\"\r\n										<div class=\'usr-card\'>\r\n											<img src=\'styles/img/avatars/5.png\' alt=\'Sadi Orlaf\'>\r\n											<div class=\'usr-card-content\'>\r\n												<h3>Sadi Orlaf</h3>\r\n												<p>Marketing Executive</p>\r\n											</div>\r\n										</div>\r\n									\">\r\n                        <i></i>Sadi Orlaf\r\n                    </a>\r\n                </dt>\r\n                <dt>\r\n                    <a href=\"#\" class=\"usr\"\r\n                       data-chat-id=\"cha2\"\r\n                       data-chat-fname=\"Jessica\"\r\n                       data-chat-lname=\"Dolof\"\r\n                       data-chat-status=\"online\"\r\n                       data-chat-alertmsg=\"\"\r\n                       data-chat-alertshow=\"false\"\r\n                       popover-trigger=\"hover\"\r\n                       popover-placement=\"right\"\r\n                       smart-popover-html=\"\r\n										<div class=\'usr-card\'>\r\n											<img src=\'styles/img/avatars/1.png\' alt=\'Jessica Dolof\'>\r\n											<div class=\'usr-card-content\'>\r\n												<h3>Jessica Dolof</h3>\r\n												<p>Sales Administrator</p>\r\n											</div>\r\n										</div>\r\n									\">\r\n                        <i></i>Jessica Dolof\r\n                    </a>\r\n                </dt>\r\n                <dt>\r\n                    <a href=\"#\" class=\"usr\"\r\n                       data-chat-id=\"cha3\"\r\n                       data-chat-fname=\"Zekarburg\"\r\n                       data-chat-lname=\"Almandalie\"\r\n                       data-chat-status=\"online\"\r\n                       popover-trigger=\"hover\"\r\n                       popover-placement=\"right\"\r\n                       smart-popover-html=\"\r\n										<div class=\'usr-card\'>\r\n											<img src=\'styles/img/avatars/3.png\' alt=\'Zekarburg Almandalie\'>\r\n											<div class=\'usr-card-content\'>\r\n												<h3>Zekarburg Almandalie</h3>\r\n												<p>Sales Admin</p>\r\n											</div>\r\n										</div>\r\n									\">\r\n                        <i></i>Zekarburg Almandalie\r\n                    </a>\r\n                </dt>\r\n                <dt>\r\n                    <a href=\"#\" class=\"usr\"\r\n                       data-chat-id=\"cha4\"\r\n                       data-chat-fname=\"Barley\"\r\n                       data-chat-lname=\"Krazurkth\"\r\n                       data-chat-status=\"away\"\r\n                       popover-trigger=\"hover\"\r\n                       popover-placement=\"right\"\r\n                       smart-popover-html=\"\r\n										<div class=\'usr-card\'>\r\n											<img src=\'styles/img/avatars/4.png\' alt=\'Barley Krazurkth\'>\r\n											<div class=\'usr-card-content\'>\r\n												<h3>Barley Krazurkth</h3>\r\n												<p>Sales Director</p>\r\n											</div>\r\n										</div>\r\n									\">\r\n                        <i></i>Barley Krazurkth\r\n                    </a>\r\n                </dt>\r\n                <dt>\r\n                    <a href=\"#\" class=\"usr offline\"\r\n                       data-chat-id=\"cha5\"\r\n                       data-chat-fname=\"Farhana\"\r\n                       data-chat-lname=\"Amrin\"\r\n                       data-chat-status=\"incognito\"\r\n                       popover-trigger=\"hover\"\r\n                       popover-placement=\"right\"\r\n                       smart-popover-html=\"\r\n										<div class=\'usr-card\'>\r\n											<img src=\'styles/img/avatars/female.png\' alt=\'Farhana Amrin\'>\r\n											<div class=\'usr-card-content\'>\r\n												<h3>Farhana Amrin</h3>\r\n												<p>Support Admin <small><i class=\'fa fa-music\'></i> Playing Beethoven Classics</small></p>\r\n											</div>\r\n										</div>\r\n									\">\r\n                        <i></i>Farhana Amrin (offline)\r\n                    </a>\r\n                </dt>\r\n                <dt>\r\n                    <a href=\"#\" class=\"usr offline\"\r\n                       data-chat-id=\"cha6\"\r\n                       data-chat-fname=\"Lezley\"\r\n                       data-chat-lname=\"Jacob\"\r\n                       data-chat-status=\"incognito\"\r\n                       popover-trigger=\"hover\"\r\n                       popover-placement=\"right\"\r\n                       smart-popover-html=\"\r\n										<div class=\'usr-card\'>\r\n											<img src=\'styles/img/avatars/male.png\' alt=\'Lezley Jacob\'>\r\n											<div class=\'usr-card-content\'>\r\n												<h3>Lezley Jacob</h3>\r\n												<p>Sales Director</p>\r\n											</div>\r\n										</div>\r\n									\">\r\n                        <i></i>Lezley Jacob (offline)\r\n                    </a>\r\n                </dt>\r\n            </dl>\r\n\r\n\r\n            <!--<a href=\"chat.html\" class=\"btn btn-xs btn-default btn-block sa-chat-learnmore-btn\">About the API</a>-->\r\n        </div>\r\n    </li>\r\n</ul>");
 $templateCache.put("app/dashboard/chat/directives/chat-users.tpl.html","<div id=\"chat-container\" ng-class=\"{open: open}\">\r\n    <span class=\"chat-list-open-close\" ng-click=\"openToggle()\"><i class=\"fa fa-user\"></i><b>!</b></span>\r\n\r\n    <div class=\"chat-list-body custom-scroll\">\r\n        <ul id=\"chat-users\">\r\n            <li ng-repeat=\"chatUser in chatUsers | filter: chatUserFilter\">\r\n                <a ng-click=\"messageTo(chatUser)\"><img ng-src=\"{{chatUser.picture}}\">{{chatUser.username}} <span\r\n                        class=\"badge badge-inverse\">{{chatUser.username.length}}</span><span class=\"state\"><i\r\n                        class=\"fa fa-circle txt-color-green pull-right\"></i></span></a>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n    <div class=\"chat-list-footer\">\r\n        <div class=\"control-group\">\r\n            <form class=\"smart-form\">\r\n                <section>\r\n                    <label class=\"input\" >\r\n                        <input type=\"text\" ng-model=\"chatUserFilter\" id=\"filter-chat-list\" placeholder=\"Filter\">\r\n                    </label>\r\n                </section>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>");
 $templateCache.put("app/dashboard/chat/directives/chat-widget.tpl.html","<div id=\"chat-widget\" jarvis-widget data-widget-color=\"blueDark\" data-widget-editbutton=\"false\"\r\n     data-widget-fullscreenbutton=\"false\">\r\n\r\n\r\n    <header>\r\n        <span class=\"widget-icon\"> <i class=\"fa fa-comments txt-color-white\"></i> </span>\r\n\r\n        <h2> SmartMessage </h2>\r\n\r\n        <div class=\"widget-toolbar\">\r\n            <!-- add: non-hidden - to disable auto hide -->\r\n\r\n            <div class=\"btn-group\" data-dropdown>\r\n                <button class=\"btn dropdown-toggle btn-xs btn-success\" data-toggle=\"dropdown\">\r\n                    Status <i class=\"fa fa-caret-down\"></i>\r\n                </button>\r\n                <ul class=\"dropdown-menu pull-right js-status-update\">\r\n                    <li>\r\n                        <a href-void><i class=\"fa fa-circle txt-color-green\"></i> Online</a>\r\n                    </li>\r\n                    <li>\r\n                        <a href-void><i class=\"fa fa-circle txt-color-red\"></i> Busy</a>\r\n                    </li>\r\n                    <li>\r\n                        <a href-void><i class=\"fa fa-circle txt-color-orange\"></i> Away</a>\r\n                    </li>\r\n                    <li class=\"divider\"></li>\r\n                    <li>\r\n                        <a href-void><i class=\"fa fa-power-off\"></i> Log Off</a>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </header>\r\n\r\n    <!-- widget div-->\r\n    <div>\r\n        <div class=\"widget-body widget-hide-overflow no-padding\">\r\n            <!-- content goes here -->\r\n\r\n            <chat-users></chat-users>\r\n\r\n            <!-- CHAT BODY -->\r\n            <div id=\"chat-body\" class=\"chat-body custom-scroll\">\r\n                <ul>\r\n                    <li class=\"message\" ng-repeat=\"message in chatMessages\">\r\n                        <img class=\"message-picture online\" ng-src=\"{{message.user.picture}}\">\r\n\r\n                        <div class=\"message-text\">\r\n                            <time>\r\n                                {{message.date | date }}\r\n                            </time>\r\n                            <a ng-click=\"messageTo(message.user)\" class=\"username\">{{message.user.username}}</a>\r\n                            <div ng-bind-html=\"message.body\"></div>\r\n\r\n                        </div>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n\r\n            <!-- CHAT FOOTER -->\r\n            <div class=\"chat-footer\">\r\n\r\n                <!-- CHAT TEXTAREA -->\r\n                <div class=\"textarea-div\">\r\n\r\n                    <div class=\"typearea\">\r\n                        <textarea placeholder=\"Write a reply...\" id=\"textarea-expand\"\r\n                                  class=\"custom-scroll\" ng-model=\"newMessage\"></textarea>\r\n                    </div>\r\n\r\n                </div>\r\n\r\n                <!-- CHAT REPLY/SEND -->\r\n											<span class=\"textarea-controls\">\r\n												<button class=\"btn btn-sm btn-primary pull-right\" ng-click=\"sendMessage()\">\r\n                                                    Reply\r\n                                                </button> <span class=\"pull-right smart-form\"\r\n                                                                style=\"margin-top: 3px; margin-right: 10px;\"> <label\r\n                                                    class=\"checkbox pull-right\">\r\n                                                <input type=\"checkbox\" name=\"subscription\" id=\"subscription\">\r\n                                                <i></i>Press <strong> ENTER </strong> to send </label> </span> <a\r\n                                                    href-void class=\"pull-left\"><i\r\n                                                    class=\"fa fa-camera fa-fw fa-lg\"></i></a> </span>\r\n\r\n            </div>\r\n\r\n            <!-- end content -->\r\n        </div>\r\n\r\n    </div>\r\n    <!-- end widget div -->\r\n</div>");
-$templateCache.put("app/dashboard/products/views/products.tpl.html","<div id=\"content\">\r\n\r\n  <!-- row -->\r\n  <div class=\"row\">\r\n\r\n    <!-- col -->\r\n    <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\r\n      <h1 class=\"page-title txt-color-blueDark\">\r\n        <!-- PAGE HEADER --><i class=\"fa-fw fa fa-home\"></i> Dashboard <span>>\r\n							Products </span></h1>\r\n    </div>\r\n    <!-- end col -->\r\n\r\n  </div>\r\n  <!-- end row -->\r\n\r\n  <!--\r\n    The ID \"widget-grid\" will start to initialize all widgets below\r\n    You do not need to use widgets if you dont want to. Simply remove\r\n    the <section></section> and you can use wells or panels instead\r\n    -->\r\n\r\n  <!-- widget grid -->\r\n  <section id=\"widget-grid\" class=\"\">\r\n    <div class=\"row\">\r\n      <div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\r\n        <div jarvis-widget id=\"normal-table-widget\" data-widget-color=\"blueDark\" data-widget-editbutton=\"false\">\r\n          <header>\r\n            <span class=\"widget-icon\"> <i class=\"fa fa-table\"></i> </span>\r\n\r\n            <h2>Product Table</h2>\r\n          </header>\r\n          <div>\r\n            <div class=\"widget-body\">\r\n              <div class=\"table-responsive\">\r\n                <table class=\"table table-bordered\">\r\n                  <thead>\r\n                    <tr>\r\n                      <th>Id</th>\r\n                      <th>Product name</th>\r\n                      <th>Date</th>\r\n                      <th>Expiry</th>\r\n                    </tr>\r\n                  </thead>\r\n                  <tbody>\r\n                    <tr ng-repeat=\"prod in products.products\">\r\n                      <td>{{prod.tagid}}</td>\r\n                      <td>{{prod.name}}</td>\r\n                      <td>{{prod.date}}</td>\r\n                      <td>{{prod.expiry}}</td>\r\n                    </tr>\r\n                  </tbody>\r\n                </table>\r\n\r\n              </div>\r\n\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n\r\n  </section>\r\n  <!-- end widget grid -->\r\n\r\n</div>");
+$templateCache.put("app/dashboard/products/views/products.tpl.html","<div id=\"content\">\r\n\r\n  <!-- row -->\r\n  <div class=\"row\">\r\n\r\n    <!-- col -->\r\n    <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\r\n      <h1 class=\"page-title txt-color-blueDark\">\r\n        <!-- PAGE HEADER --><i class=\"fa-fw fa fa-home\"></i> Dashboard <span>>\r\n							Products </span></h1>\r\n    </div>\r\n    <!-- end col -->\r\n\r\n  </div>\r\n  <!-- end row -->\r\n\r\n  <!--\r\n    The ID \"widget-grid\" will start to initialize all widgets below\r\n    You do not need to use widgets if you dont want to. Simply remove\r\n    the <section></section> and you can use wells or panels instead\r\n    -->\r\n\r\n  <!-- widget grid -->\r\n  <section id=\"widget-grid\" class=\"\">\r\n    <div class=\"row\">\r\n      <div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\r\n        <div jarvis-widget id=\"normal-table-widget\" data-widget-color=\"blueDark\" data-widget-editbutton=\"false\">\r\n          <header>\r\n            <span class=\"widget-icon\"> <i class=\"fa fa-table\"></i> </span>\r\n\r\n            <h2>Product Table</h2>\r\n          </header>\r\n          <div>\r\n            <div class=\"widget-body\">\r\n              <div class=\"table-responsive\">\r\n                <table class=\"table table-bordered\">\r\n                  <thead>\r\n                    <tr>\r\n                      <th>Id</th>\r\n                      <th>Product name</th>\r\n                      <th>Date</th>\r\n                      <th>Expiry</th>\r\n                    </tr>\r\n                  </thead>\r\n                  <tbody>\r\n                    <tr dir-paginate=\"prod in products.products | itemsPerPage: 10\" total-items=\"products.products.length\" current-page=\"products.currentPage\"\r\n                      pagination-id=\"products\">\r\n                      <td>{{prod.tagid}}</td>\r\n                      <td>{{prod.name}}</td>\r\n                      <td>{{prod.date}}</td>\r\n                      <td>{{prod.expiry}}</td>\r\n                    </tr>\r\n                  </tbody>\r\n                </table>\r\n\r\n              </div>\r\n              <dir-pagination-controls boundary-links=\"true\" pagination-id=\"products\"></dir-pagination-controls>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n\r\n  </section>\r\n  <!-- end widget grid -->\r\n\r\n</div>");
 $templateCache.put("app/dashboard/todo/directives/todo-list.tpl.html","<div>\r\n    <h5 class=\"todo-group-title\"><i class=\"fa fa-{{icon}}\"></i> {{title}} (\r\n        <small class=\"num-of-tasks\">{{scopeItems.length}}</small>\r\n        )\r\n    </h5>\r\n    <ul class=\"todo\">\r\n        <li ng-class=\"{complete: todo.completedAt}\" ng-repeat=\"todo in todos | orderBy: todo._id | filter: filter  track by todo._id\" >\r\n    	<span class=\"handle\"> <label class=\"checkbox\">\r\n            <input type=\"checkbox\" ng-click=\"todo.toggle()\" ng-checked=\"todo.completedAt\"\r\n                   name=\"checkbox-inline\">\r\n            <i></i> </label> </span>\r\n\r\n            <p>\r\n                <strong>Ticket #{{$index + 1}}</strong> - {{todo.title}}\r\n                <span class=\"text-muted\" ng-if=\"todo.description\">{{todo.description}}</span>\r\n                <span class=\"date\">{{todo.createdAt | date}} &dash; <a ng-click=\"deleteTodo(todo)\" class=\"text-muted\"><i\r\n                        class=\"fa fa-trash\"></i></a></span>\r\n\r\n            </p>\r\n        </li>\r\n    </ul>\r\n</div>");
 $templateCache.put("app/dashboard/upload-excel/views/upload-excel.tpl.html","<div id=\"content\">\r\n\r\n  <!-- row -->\r\n  <div class=\"row\">\r\n\r\n    <!-- col -->\r\n    <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\r\n      <h1 class=\"page-title txt-color-blueDark\">\r\n        <!-- PAGE HEADER --><i class=\"fa-fw fa fa-home\"></i> Dashboard <span>>\r\n							Upload Excel </span></h1>\r\n    </div>\r\n    <!-- end col -->\r\n\r\n  </div>\r\n  <!-- end row -->\r\n\r\n  <!--\r\n    The ID \"widget-grid\" will start to initialize all widgets below\r\n    You do not need to use widgets if you dont want to. Simply remove\r\n    the <section></section> and you can use wells or panels instead\r\n    -->\r\n\r\n  <!-- widget grid -->\r\n  <section id=\"widget-grid\" class=\"\">\r\n\r\n    <!-- row -->\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\r\n        <h1 class=\"page-title txt-color-blueDark text-center well\">\r\n\r\n          <!-- PAGE HEADER -->\r\n          Upload Excel<br>\r\n          <small class=\"text-primary\">Please make sure the excel matches the correct standards.</small>\r\n        </h1>\r\n        <div jarvis-widget id=\"basic-form-elements\" data-widget-colorbutton=\"false\" data-widget-editbutton=\"false\" data-widget-custombutton=\"false\">\r\n          <div class=\"widget-body\" style=\"height: 65vh\">\r\n            <div class=\"demo-btns custom-spinner\" style=\"position: absolute; margin: 10% 51%; z-index: 9;\" ng-if=\"isUploading\">\r\n              <p>\r\n                <b>uploading...</b>\r\n              </p>\r\n              <a href-void class=\"btn bg-color-red txt-color-white\"><i class=\"fa fa-gear fa-4x fa-spin\"></i></a>\r\n            </div>\r\n            <form id=\"smart-form-register\" name=\"form\" class=\"smart-form\" data-smart-registration-form ng-if=\"!isUploading\">\r\n              <header>\r\n                Upload information\r\n              </header>\r\n\r\n              <fieldset>\r\n                <section>\r\n                  <label class=\"input\"> <i class=\"icon-append fa fa-cube\"></i>\r\n                <input type=\"text\" name=\"product\" placeholder=\"Product Name\">\r\n                <b class=\"tooltip tooltip-bottom-right\">Needed to enter product name</b> </label>\r\n                </section>\r\n\r\n\r\n                <section>\r\n                  <label class=\"input\"> <i class=\"icon-append fa fa-cubes\"></i>\r\n                <input type=\"text\" name=\"batch\" placeholder=\"Product Batch\">\r\n                <b class=\"tooltip tooltip-bottom-right\">Needed to enter product batch</b> </label>\r\n                </section>\r\n              </fieldset>\r\n\r\n              <fieldset>\r\n                <div class=\"row\">\r\n                  <section class=\"col col-6\">\r\n                    <label class=\"input\">\r\n                    <input type=\"text\" name=\"firstname\" placeholder=\"Manufacturing Data\" ng-model=\"registration.firstname\">\r\n                </label>\r\n                  </section>\r\n                  <section class=\"col col-6\">\r\n                    <label class=\"input\">\r\n                    <input type=\"text\" name=\"lastname\" placeholder=\"Expiry Date\"  ng-model=\"registration.lastname\">\r\n                </label>\r\n                  </section>\r\n                </div>\r\n\r\n                <section>\r\n                  <input type=\"checkbox\" name=\"terms\" id=\"terms\">\r\n                  <i></i>Map extra Information</label>\r\n                </section>\r\n              </fieldset>\r\n              <fieldset>\r\n                <section>\r\n                  <label class=\"label\">Select Excel - {{fileName}}</label>\r\n                  <div class=\"input input-file\" cg-busy=\"myPromise\">\r\n                    <input type=\"file\" ng-model=\"file\" name=\"file\" base-sixty-four-input required onload=\"onLoad\" accept=\".csv\">\r\n                    <br/>\r\n                    <button class=\"btn-primary btn-lg Button\" ng-click=\"uploadFile()\">upload</button>\r\n                  </div>\r\n                  <!--<div>{{fileContent}}</div>-->\r\n                </section>\r\n              </fieldset>\r\n            </form>\r\n          </div>\r\n\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!-- end row -->\r\n\r\n  </section>\r\n  <!-- end widget grid -->\r\n\r\n</div>");
 $templateCache.put("app/_common/forms/directives/bootstrap-validation/bootstrap-attribute-form.tpl.html","<form id=\"attributeForm\" class=\"form-horizontal\"\r\n      data-bv-message=\"This value is not valid\"\r\n      data-bv-feedbackicons-valid=\"glyphicon glyphicon-ok\"\r\n      data-bv-feedbackicons-invalid=\"glyphicon glyphicon-remove\"\r\n      data-bv-feedbackicons-validating=\"glyphicon glyphicon-refresh\">\r\n\r\n    <fieldset>\r\n        <legend>\r\n            Set validator options via HTML attributes\r\n        </legend>\r\n\r\n        <div class=\"alert alert-warning\">\r\n            <code>&lt; input\r\n                data-bv-validatorname\r\n                data-bv-validatorname-validatoroption=\"...\" / &gt;</code>\r\n\r\n            <br>\r\n            <br>\r\n            More validator options can be found here:\r\n            <a href=\"http://bootstrapvalidator.com/validators/\" target=\"_blank\">http://bootstrapvalidator.com/validators/</a>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-lg-3 control-label\">Full name</label>\r\n            <div class=\"col-lg-4\">\r\n                <input type=\"text\" class=\"form-control\" name=\"firstName\" placeholder=\"First name\"\r\n                       data-bv-notempty=\"true\"\r\n                       data-bv-notempty-message=\"The first name is required and cannot be empty\" />\r\n            </div>\r\n            <div class=\"col-lg-4\">\r\n                <input type=\"text\" class=\"form-control\" name=\"lastName\" placeholder=\"Last name\"\r\n                       data-bv-notempty=\"true\"\r\n                       data-bv-notempty-message=\"The last name is required and cannot be empty\" />\r\n            </div>\r\n        </div>\r\n    </fieldset>\r\n\r\n    <fieldset>\r\n        <div class=\"form-group\">\r\n            <label class=\"col-lg-3 control-label\">Username</label>\r\n            <div class=\"col-lg-5\">\r\n                <input type=\"text\" class=\"form-control\" name=\"username\"\r\n                       data-bv-message=\"The username is not valid\"\r\n\r\n                       data-bv-notempty=\"true\"\r\n                       data-bv-notempty-message=\"The username is required and cannot be empty\"\r\n\r\n                       data-bv-regexp=\"true\"\r\n                       data-bv-regexp-regexp=\"^[a-zA-Z0-9_\\.]+$\"\r\n                       data-bv-regexp-message=\"The username can only consist of alphabetical, number, dot and underscore\"\r\n\r\n                       data-bv-stringlength=\"true\"\r\n                       data-bv-stringlength-min=\"6\"\r\n                       data-bv-stringlength-max=\"30\"\r\n                       data-bv-stringlength-message=\"The username must be more than 6 and less than 30 characters long\"\r\n\r\n                       data-bv-different=\"true\"\r\n                       data-bv-different-field=\"password\"\r\n                       data-bv-different-message=\"The username and password cannot be the same as each other\" />\r\n            </div>\r\n        </div>\r\n    </fieldset>\r\n\r\n    <fieldset>\r\n        <div class=\"form-group\">\r\n            <label class=\"col-lg-3 control-label\">Email address</label>\r\n            <div class=\"col-lg-5\">\r\n                <input class=\"form-control\" name=\"email\" type=\"email\"\r\n                       data-bv-emailaddress=\"true\"\r\n                       data-bv-emailaddress-message=\"The input is not a valid email address\" />\r\n            </div>\r\n        </div>\r\n    </fieldset>\r\n\r\n    <fieldset>\r\n        <div class=\"form-group\">\r\n            <label class=\"col-lg-3 control-label\">Password</label>\r\n            <div class=\"col-lg-5\">\r\n                <input type=\"password\" class=\"form-control\" name=\"password\"\r\n                       data-bv-notempty=\"true\"\r\n                       data-bv-notempty-message=\"The password is required and cannot be empty\"\r\n\r\n                       data-bv-identical=\"true\"\r\n                       data-bv-identical-field=\"confirmPassword\"\r\n                       data-bv-identical-message=\"The password and its confirm are not the same\"\r\n\r\n                       data-bv-different=\"true\"\r\n                       data-bv-different-field=\"username\"\r\n                       data-bv-different-message=\"The password cannot be the same as username\" />\r\n            </div>\r\n        </div>\r\n    </fieldset>\r\n\r\n    <fieldset>\r\n        <div class=\"form-group\">\r\n            <label class=\"col-lg-3 control-label\">Retype password</label>\r\n            <div class=\"col-lg-5\">\r\n                <input type=\"password\" class=\"form-control\" name=\"confirmPassword\"\r\n                       data-bv-notempty=\"true\"\r\n                       data-bv-notempty-message=\"The confirm password is required and cannot be empty\"\r\n\r\n                       data-bv-identical=\"true\"\r\n                       data-bv-identical-field=\"password\"\r\n                       data-bv-identical-message=\"The password and its confirm are not the same\"\r\n\r\n                       data-bv-different=\"true\"\r\n                       data-bv-different-field=\"username\"\r\n                       data-bv-different-message=\"The password cannot be the same as username\" />\r\n            </div>\r\n        </div>\r\n    </fieldset>\r\n\r\n    <fieldset>\r\n        <div class=\"form-group\">\r\n            <label class=\"col-lg-3 control-label\">Languages</label>\r\n            <div class=\"col-lg-5\">\r\n                <div class=\"checkbox\">\r\n                    <label>\r\n                        <input type=\"checkbox\" name=\"languages[]\" value=\"english\"\r\n                               data-bv-message=\"Please specify at least one language you can speak\"\r\n                               data-bv-notempty=\"true\" />\r\n                        English </label>\r\n                </div>\r\n                <div class=\"checkbox\">\r\n                    <label>\r\n                        <input type=\"checkbox\" name=\"languages[]\" value=\"french\" />\r\n                        French </label>\r\n                </div>\r\n                <div class=\"checkbox\">\r\n                    <label>\r\n                        <input type=\"checkbox\" name=\"languages[]\" value=\"german\" />\r\n                        German </label>\r\n                </div>\r\n                <div class=\"checkbox\">\r\n                    <label>\r\n                        <input type=\"checkbox\" name=\"languages[]\" value=\"russian\" />\r\n                        Russian </label>\r\n                </div>\r\n                <div class=\"checkbox\">\r\n                    <label>\r\n                        <input type=\"checkbox\" name=\"languages[]\" value=\"other\" />\r\n                        Other </label>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </fieldset>\r\n\r\n    <div class=\"form-actions\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-12\">\r\n                <button class=\"btn btn-default\" type=\"submit\">\r\n                    <i class=\"fa fa-eye\"></i>\r\n                    Validate\r\n                </button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</form>\r\n     ");
@@ -4191,32 +4193,64 @@ angular.module('app.maps').factory('SmartMapStyle', function ($q, $http, APP_CON
 
 
 });
+
 'use strict';
 
-angular.module('app.smartAdmin').controller('UserController', function ($scope, $interval, CalendarEvent) {
+angular.module('app.smartAdmin').controller('UserController', function ($scope, userDataService) {
 
-  // Live Feeds Widget Data And Display Controls
-  // Live Stats Tab
-  var databaseRef = firebase.database().ref().child('role');
-  var databaseUserRef = firebase.database().ref().child('user');
-  databaseRef.once('value').then(function (snapshot) {
-    //console.log(snapshot.val());
-    if (snapshot.val() !== null) {
-      $scope.role = snapshot.val();
-      return $scope.role;
-    }
-  });
+  var _instance = this;
+  _instance.role = [{ name: 'admin', type: 'admin' },
+  { name: 'operator', type: 'operator' },
+  { name: 'system admin', type: 'system-admin' }];
 
-  $scope.creaRole = function (user) {
-    delete user.initialized;
-    if (user.active) {
-      console.log(user.active)
-      user.active = 1;
-    }
-    databaseUserRef.push().set(user);
+  _instance.createRole = function (role) {
+    console.log(role);
+    return userDataService.registerUser(role).then(function (data) {
+      console.log(data);
+    });
   };
-
 });
+(function () {
+
+  'use strict';
+
+  /* jshint validthis:true */
+
+
+  function userDataService(
+    $http, $location, $localStorage) {
+    var HOST = 'http://', BASE_URL = $location.host(), PORT = ':5012';
+    var RequestUrl = HOST + BASE_URL + PORT;
+
+    function registerUser(role) {
+      var req = {
+        method: 'POST',
+        url: RequestUrl + '/api/register',
+        headers: {
+          Authorization: 'bearer ' + $localStorage.token
+        },
+        data: role
+      };
+
+      return $http(req).then(function (data) {
+        if (data) {
+          return data;
+        }
+      }, function (err) {
+        throw err;
+      });
+    }
+
+    return _.create({
+      registerUser: registerUser
+    });
+
+  }
+
+  angular.module('app.smartAdmin')
+    .factory('userDataService', userDataService);
+
+})();
 'use strict';
 
 angular.module('app.smartAdmin').controller('UserListController', function ($scope, $interval, CalendarEvent) {
@@ -5316,6 +5350,646 @@ angular.module('app.ui').directive('smartTreeview', function ($compile, $sce) {
 !function(e,n){"use strict";e._arrayBufferToBase64=function(n){for(var t="",i=new Uint8Array(n),a=i.byteLength,r=0;r<a;r+=1)t+=String.fromCharCode(i[r]);return e.btoa(t)},e.angular.module("naif.base64",[]).directive("baseSixtyFourInput",["$window","$q",function(e,t){var i={onChange:"&",onAfterValidate:"&",parser:"&"},a=["onabort","onerror","onloadstart","onloadend","onprogress","onload"];return a.forEach(function(e){i[e]="&"}),{restrict:"A",require:"ngModel",scope:i,link:function(i,r,o,l){function f(e){if(o.maxnum&&o.multiple&&e){var n=e.length<=parseInt(o.maxnum);l.$setValidity("maxnum",n)}return e}function u(e){if(o.minnum&&o.multiple&&e){var n=e.length>=parseInt(o.minnum);l.$setValidity("minnum",n)}return e}function s(e){var n=!0;if(o.maxsize&&e){var t=1e3*parseFloat(o.maxsize);if(o.multiple)for(var i=0;i<e.length;i++){var a=e[i];if(a.filesize>t){n=!1;break}}else n=e.filesize<=t;l.$setValidity("maxsize",n)}return e}function c(e){var n=!0,t=1e3*parseFloat(o.minsize);if(o.minsize&&e){if(o.multiple)for(var i=0;i<e.length;i++){var a=e[i];if(a.filesize<t){n=!1;break}}else n=e.filesize>=t;l.$setValidity("minsize",n)}return e}function p(e){var n,t,i,a=!0;if(o.accept&&(t=o.accept.trim().replace(/[,\s]+/gi,"|").replace(/\./g,"\\.").replace(/\/\*/g,"/.*"),n=new RegExp(t)),o.accept&&e){if(o.multiple)for(var r=0;r<e.length;r++){var f=e[r];if(i="."+f.filename.split(".").pop(),!(a=n.test(f.filetype)||n.test(i)))break}else i="."+e.filename.split(".").pop(),a=n.test(e.filetype)||n.test(i);l.$setValidity("accept",a)}return e}function d(){var e=o.multiple?$:$[0];l.$setViewValue(e),s(e),c(e),f(e),u(e),p(e)}function m(e,n,t,i,a){t[e]=function(e){n()(e,t,i,z,$,a)}}function g(a,r,l){return function(f){var u,s=f.target.result,c=o.maxsize&&r.size>1024*o.maxsize;o.doNotParseIfOversize!==n&&c?l.base64=null:l.base64=e._arrayBufferToBase64(s),u=o.parser?t.when(i.parser()(r,l)):t.when(l),u.then(function(e){$.push(e),r.deferredObj.resolve()}),o.onload&&(i.onload&&"function"==typeof i.onload()?i.onload()(f,a,r,z,$,l):i.onload(f,z))}}function h(e,n,t){for(var r=a.length-1;r>=0;r--){var l=a[r];o[l]&&"onload"!==l&&m(l,i[l],e,n,t)}e.onload=g(e,n,t)}function y(){var n,i=[];for(n=z.length-1;n>=0;n--)z[n].deferredObj=t.defer(),i.push(z[n].deferredObj.promise);for(t.all(i).then(d),n=z.length-1;n>=0;n--){var a=new e.FileReader,r=z[n],o={};o.filetype=r.type,o.filename=r.name,o.filesize=r.size,h(a,r,o),a.readAsArrayBuffer(r)}}function v(e){o.onChange&&(i.onChange&&"function"==typeof i.onChange()?i.onChange()(e,z):i.onChange(e,z))}function V(e){if(o.onAfterValidate){for(var n=[],a=z.length-1;a>=0;a--)n.push(z[a].deferredObj.promise);t.all(n).then(function(){i.onAfterValidate&&"function"==typeof i.onAfterValidate()?i.onAfterValidate()(e,$,z):i.onAfterValidate(e,$,z)})}}var z=[],$=[];l&&(l.$isEmpty=function(e){return!e||(angular.isArray(e)?0===e.length:!e.base64)},i._clearInput=function(){r[0].value=""},i.$watch(function(){return l.$viewValue},function(e){l.$isEmpty(e)&&l.$dirty&&(i._clearInput(),l.$setValidity("maxnum",!0),l.$setValidity("minnum",!0),l.$setValidity("maxsize",!0),l.$setValidity("minsize",!0),l.$setValidity("accept",!0))}),r.on("change",function(e){$=[],$=angular.copy($),0===e.target.files.length?(z=[],d()):(z=e.target.files,y(),v(e),V(e)),i._clearInput()}))}}}])}(window);
 //# sourceMappingURL=angular-base64-upload.min.js.map
 
+/**
+ * dirPagination - AngularJS module for paginating (almost) anything.
+ *
+ *
+ * Credits
+ * =======
+ *
+ * Daniel Tabuenca: https://groups.google.com/d/msg/angular/an9QpzqIYiM/r8v-3W1X5vcJ
+ * for the idea on how to dynamically invoke the ng-repeat directive.
+ *
+ * I borrowed a couple of lines and a few attribute names from the AngularUI Bootstrap project:
+ * https://github.com/angular-ui/bootstrap/blob/master/src/pagination/pagination.js
+ *
+ * Copyright 2014 Michael Bromley <michael@michaelbromley.co.uk>
+ */
+
+(function () {
+
+  /**
+   * Config
+   */
+  var moduleName = 'angularUtils.directives.dirPagination';
+  var DEFAULT_ID = '__default';
+
+  /**
+   * Module
+   */
+  angular.module(moduleName, [])
+    .directive('dirPaginate', ['$compile', '$parse', 'paginationService', dirPaginateDirective])
+    .directive('dirPaginateNoCompile', noCompileDirective)
+    .directive('dirPaginationControls', ['paginationService', 'paginationTemplate', dirPaginationControlsDirective])
+    .filter('itemsPerPage', ['paginationService', itemsPerPageFilter])
+    .service('paginationService', paginationService)
+    .provider('paginationTemplate', paginationTemplateProvider)
+    .run(['$templateCache', dirPaginationControlsTemplateInstaller]);
+
+  function dirPaginateDirective($compile, $parse, paginationService) {
+
+    return {
+      terminal: true,
+      multiElement: true,
+      priority: 100,
+      compile: dirPaginationCompileFn
+    };
+
+    function dirPaginationCompileFn(tElement, tAttrs) {
+
+      var expression = tAttrs.dirPaginate;
+      // regex taken directly from https://github.com/angular/angular.js/blob/v1.4.x/src/ng/directive/ngRepeat.js#L339
+      var match = expression.match(/^\s*([\s\S]+?)\s+in\s+([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+track\s+by\s+([\s\S]+?))?\s*$/);
+
+      var filterPattern = /\|\s*itemsPerPage\s*:\s*(.*\(\s*\w*\)|([^\)]*?(?=\s+as\s+))|[^\)]*)/;
+      if (match[2].match(filterPattern) === null) {
+        throw 'pagination directive: the \'itemsPerPage\' filter must be set.';
+      }
+      var itemsPerPageFilterRemoved = match[2].replace(filterPattern, '');
+      var collectionGetter = $parse(itemsPerPageFilterRemoved);
+
+      addNoCompileAttributes(tElement);
+
+      // If any value is specified for paginationId, we register the un-evaluated expression at this stage for the benefit of any
+      // dir-pagination-controls directives that may be looking for this ID.
+      var rawId = tAttrs.paginationId || DEFAULT_ID;
+      paginationService.registerInstance(rawId);
+
+      return function dirPaginationLinkFn(scope, element, attrs) {
+
+        // Now that we have access to the `scope` we can interpolate any expression given in the paginationId attribute and
+        // potentially register a new ID if it evaluates to a different value than the rawId.
+        var paginationId = $parse(attrs.paginationId)(scope) || attrs.paginationId || DEFAULT_ID;
+
+        // (TODO: this seems sound, but I'm reverting as many bug reports followed it's introduction in 0.11.0.
+        // Needs more investigation.)
+        // In case rawId != paginationId we deregister using rawId for the sake of general cleanliness
+        // before registering using paginationId
+        // paginationService.deregisterInstance(rawId);
+        paginationService.registerInstance(paginationId);
+
+        var repeatExpression = getRepeatExpression(expression, paginationId);
+        addNgRepeatToElement(element, attrs, repeatExpression);
+
+        removeTemporaryAttributes(element);
+        var compiled = $compile(element);
+
+        var currentPageGetter = makeCurrentPageGetterFn(scope, attrs, paginationId);
+        paginationService.setCurrentPageParser(paginationId, currentPageGetter, scope);
+
+        if (typeof attrs.totalItems !== 'undefined') {
+          paginationService.setAsyncModeTrue(paginationId);
+          scope.$watch(function () {
+            return $parse(attrs.totalItems)(scope);
+          }, function (result) {
+            if (0 <= result) {
+              paginationService.setCollectionLength(paginationId, result);
+            }
+          });
+        } else {
+          paginationService.setAsyncModeFalse(paginationId);
+          scope.$watchCollection(function () {
+            return collectionGetter(scope);
+          }, function (collection) {
+            if (collection) {
+              var collectionLength = (collection instanceof Array) ? collection.length : Object.keys(collection).length;
+              paginationService.setCollectionLength(paginationId, collectionLength);
+            }
+          });
+        }
+
+        // Delegate to the link function returned by the new compilation of the ng-repeat
+        compiled(scope);
+
+        // (TODO: Reverting this due to many bug reports in v 0.11.0. Needs investigation as the
+        // principle is sound)
+        // When the scope is destroyed, we make sure to remove the reference to it in paginationService
+        // so that it can be properly garbage collected
+        // scope.$on('$destroy', function destroyDirPagination() {
+        //     paginationService.deregisterInstance(paginationId);
+        // });
+      };
+    }
+
+    /**
+     * If a pagination id has been specified, we need to check that it is present as the second argument passed to
+     * the itemsPerPage filter. If it is not there, we add it and return the modified expression.
+     *
+     * @param expression
+     * @param paginationId
+     * @returns {*}
+     */
+    function getRepeatExpression(expression, paginationId) {
+      var repeatExpression,
+        idDefinedInFilter = !!expression.match(/(\|\s*itemsPerPage\s*:[^|]*:[^|]*)/);
+
+      if (paginationId !== DEFAULT_ID && !idDefinedInFilter) {
+        repeatExpression = expression.replace(/(\|\s*itemsPerPage\s*:\s*[^|\s]*)/, "$1 : '" + paginationId + "'");
+      } else {
+        repeatExpression = expression;
+      }
+
+      return repeatExpression;
+    }
+
+    /**
+     * Adds the ng-repeat directive to the element. In the case of multi-element (-start, -end) it adds the
+     * appropriate multi-element ng-repeat to the first and last element in the range.
+     * @param element
+     * @param attrs
+     * @param repeatExpression
+     */
+    function addNgRepeatToElement(element, attrs, repeatExpression) {
+      if (element[0].hasAttribute('dir-paginate-start') || element[0].hasAttribute('data-dir-paginate-start')) {
+        // using multiElement mode (dir-paginate-start, dir-paginate-end)
+        attrs.$set('ngRepeatStart', repeatExpression);
+        element.eq(element.length - 1).attr('ng-repeat-end', true);
+      } else {
+        attrs.$set('ngRepeat', repeatExpression);
+      }
+    }
+
+    /**
+     * Adds the dir-paginate-no-compile directive to each element in the tElement range.
+     * @param tElement
+     */
+    function addNoCompileAttributes(tElement) {
+      angular.forEach(tElement, function (el) {
+        if (el.nodeType === 1) {
+          angular.element(el).attr('dir-paginate-no-compile', true);
+        }
+      });
+    }
+
+    /**
+     * Removes the variations on dir-paginate (data-, -start, -end) and the dir-paginate-no-compile directives.
+     * @param element
+     */
+    function removeTemporaryAttributes(element) {
+      angular.forEach(element, function (el) {
+        if (el.nodeType === 1) {
+          angular.element(el).removeAttr('dir-paginate-no-compile');
+        }
+      });
+      element.eq(0).removeAttr('dir-paginate-start').removeAttr('dir-paginate').removeAttr('data-dir-paginate-start').removeAttr('data-dir-paginate');
+      element.eq(element.length - 1).removeAttr('dir-paginate-end').removeAttr('data-dir-paginate-end');
+    }
+
+    /**
+     * Creates a getter function for the current-page attribute, using the expression provided or a default value if
+     * no current-page expression was specified.
+     *
+     * @param scope
+     * @param attrs
+     * @param paginationId
+     * @returns {*}
+     */
+    function makeCurrentPageGetterFn(scope, attrs, paginationId) {
+      var currentPageGetter;
+      if (attrs.currentPage) {
+        currentPageGetter = $parse(attrs.currentPage);
+      } else {
+        // If the current-page attribute was not set, we'll make our own.
+        // Replace any non-alphanumeric characters which might confuse
+        // the $parse service and give unexpected results.
+        // See https://github.com/michaelbromley/angularUtils/issues/233
+        var defaultCurrentPage = (paginationId + '__currentPage').replace(/\W/g, '_');
+        scope[defaultCurrentPage] = 1;
+        currentPageGetter = $parse(defaultCurrentPage);
+      }
+      return currentPageGetter;
+    }
+  }
+
+  /**
+   * This is a helper directive that allows correct compilation when in multi-element mode (ie dir-paginate-start, dir-paginate-end).
+   * It is dynamically added to all elements in the dir-paginate compile function, and it prevents further compilation of
+   * any inner directives. It is then removed in the link function, and all inner directives are then manually compiled.
+   */
+  function noCompileDirective() {
+    return {
+      priority: 5000,
+      terminal: true
+    };
+  }
+
+  function dirPaginationControlsTemplateInstaller($templateCache) {
+    $templateCache.put('angularUtils.directives.dirPagination.template', '<ul class="pagination" ng-if="1 < pages.length || !autoHide"><li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }"><a href="" ng-click="setCurrent(1)">&laquo;</a></li><li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }"><a href="" ng-click="setCurrent(pagination.current - 1)">&lsaquo;</a></li><li ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == \'...\' || ( ! autoHide && pages.length === 1 ) }"><a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a></li><li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }"><a href="" ng-click="setCurrent(pagination.current + 1)">&rsaquo;</a></li><li ng-if="boundaryLinks"  ng-class="{ disabled : pagination.current == pagination.last }"><a href="" ng-click="setCurrent(pagination.last)">&raquo;</a></li></ul>');
+  }
+
+  function dirPaginationControlsDirective(paginationService, paginationTemplate) {
+
+    var numberRegex = /^\d+$/;
+
+    var DDO = {
+      restrict: 'AE',
+      scope: {
+        maxSize: '=?',
+        onPageChange: '&?',
+        paginationId: '=?',
+        autoHide: '=?'
+      },
+      link: dirPaginationControlsLinkFn
+    };
+
+    // We need to check the paginationTemplate service to see whether a template path or
+    // string has been specified, and add the `template` or `templateUrl` property to
+    // the DDO as appropriate. The order of priority to decide which template to use is
+    // (highest priority first):
+    // 1. paginationTemplate.getString()
+    // 2. attrs.templateUrl
+    // 3. paginationTemplate.getPath()
+    var templateString = paginationTemplate.getString();
+    if (templateString !== undefined) {
+      DDO.template = templateString;
+    } else {
+      DDO.templateUrl = function (elem, attrs) {
+        return attrs.templateUrl || paginationTemplate.getPath();
+      };
+    }
+    return DDO;
+
+    function dirPaginationControlsLinkFn(scope, element, attrs) {
+
+      // rawId is the un-interpolated value of the pagination-id attribute. This is only important when the corresponding dir-paginate directive has
+      // not yet been linked (e.g. if it is inside an ng-if block), and in that case it prevents this controls directive from assuming that there is
+      // no corresponding dir-paginate directive and wrongly throwing an exception.
+      var rawId = attrs.paginationId || DEFAULT_ID;
+      var paginationId = scope.paginationId || attrs.paginationId || DEFAULT_ID;
+
+      if (!paginationService.isRegistered(paginationId) && !paginationService.isRegistered(rawId)) {
+        var idMessage = (paginationId !== DEFAULT_ID) ? ' (id: ' + paginationId + ') ' : ' ';
+        if (window.console) {
+          console.warn('Pagination directive: the pagination controls' + idMessage + 'cannot be used without the corresponding pagination directive, which was not found at link time.');
+        }
+      }
+
+      if (!scope.maxSize) { scope.maxSize = 9; }
+      scope.autoHide = scope.autoHide === undefined ? true : scope.autoHide;
+      scope.directionLinks = angular.isDefined(attrs.directionLinks) ? scope.$parent.$eval(attrs.directionLinks) : true;
+      scope.boundaryLinks = angular.isDefined(attrs.boundaryLinks) ? scope.$parent.$eval(attrs.boundaryLinks) : false;
+
+      var paginationRange = Math.max(scope.maxSize, 5);
+      scope.pages = [];
+      scope.pagination = {
+        last: 1,
+        current: 1
+      };
+      scope.range = {
+        lower: 1,
+        upper: 1,
+        total: 1
+      };
+
+      scope.$watch('maxSize', function (val) {
+        if (val) {
+          paginationRange = Math.max(scope.maxSize, 5);
+          generatePagination();
+        }
+      });
+
+      scope.$watch(function () {
+        if (paginationService.isRegistered(paginationId)) {
+          return (paginationService.getCollectionLength(paginationId) + 1) * paginationService.getItemsPerPage(paginationId);
+        }
+      }, function (length) {
+        if (0 < length) {
+          generatePagination();
+        }
+      });
+
+      scope.$watch(function () {
+        if (paginationService.isRegistered(paginationId)) {
+          return (paginationService.getItemsPerPage(paginationId));
+        }
+      }, function (current, previous) {
+        if (current != previous && typeof previous !== 'undefined') {
+          goToPage(scope.pagination.current);
+        }
+      });
+
+      scope.$watch(function () {
+        if (paginationService.isRegistered(paginationId)) {
+          return paginationService.getCurrentPage(paginationId);
+        }
+      }, function (currentPage, previousPage) {
+        if (currentPage != previousPage) {
+          goToPage(currentPage);
+        }
+      });
+
+      scope.setCurrent = function (num) {
+        if (paginationService.isRegistered(paginationId) && isValidPageNumber(num)) {
+          num = parseInt(num, 10);
+          paginationService.setCurrentPage(paginationId, num);
+        }
+      };
+
+      /**
+       * Custom "track by" function which allows for duplicate "..." entries on long lists,
+       * yet fixes the problem of wrongly-highlighted links which happens when using
+       * "track by $index" - see https://github.com/michaelbromley/angularUtils/issues/153
+       * @param id
+       * @param index
+       * @returns {string}
+       */
+      scope.tracker = function (id, index) {
+        return id + '_' + index;
+      };
+
+      function goToPage(num) {
+        if (paginationService.isRegistered(paginationId) && isValidPageNumber(num)) {
+          var oldPageNumber = scope.pagination.current;
+
+          scope.pages = generatePagesArray(num, paginationService.getCollectionLength(paginationId), paginationService.getItemsPerPage(paginationId), paginationRange);
+          scope.pagination.current = num;
+          updateRangeValues();
+
+          // if a callback has been set, then call it with the page number as the first argument
+          // and the previous page number as a second argument
+          if (scope.onPageChange) {
+            scope.onPageChange({
+              newPageNumber: num,
+              oldPageNumber: oldPageNumber
+            });
+          }
+        }
+      }
+
+      function generatePagination() {
+        if (paginationService.isRegistered(paginationId)) {
+          var page = parseInt(paginationService.getCurrentPage(paginationId)) || 1;
+          scope.pages = generatePagesArray(page, paginationService.getCollectionLength(paginationId), paginationService.getItemsPerPage(paginationId), paginationRange);
+          scope.pagination.current = page;
+          scope.pagination.last = scope.pages[scope.pages.length - 1];
+          if (scope.pagination.last < scope.pagination.current) {
+            scope.setCurrent(scope.pagination.last);
+          } else {
+            updateRangeValues();
+          }
+        }
+      }
+
+      /**
+       * This function updates the values (lower, upper, total) of the `scope.range` object, which can be used in the pagination
+       * template to display the current page range, e.g. "showing 21 - 40 of 144 results";
+       */
+      function updateRangeValues() {
+        if (paginationService.isRegistered(paginationId)) {
+          var currentPage = paginationService.getCurrentPage(paginationId),
+            itemsPerPage = paginationService.getItemsPerPage(paginationId),
+            totalItems = paginationService.getCollectionLength(paginationId);
+
+          scope.range.lower = (currentPage - 1) * itemsPerPage + 1;
+          scope.range.upper = Math.min(currentPage * itemsPerPage, totalItems);
+          scope.range.total = totalItems;
+        }
+      }
+      function isValidPageNumber(num) {
+        return (numberRegex.test(num) && (0 < num && num <= scope.pagination.last));
+      }
+    }
+
+    /**
+     * Generate an array of page numbers (or the '...' string) which is used in an ng-repeat to generate the
+     * links used in pagination
+     *
+     * @param currentPage
+     * @param rowsPerPage
+     * @param paginationRange
+     * @param collectionLength
+     * @returns {Array}
+     */
+    function generatePagesArray(currentPage, collectionLength, rowsPerPage, paginationRange) {
+      var pages = [];
+      var totalPages = Math.ceil(collectionLength / rowsPerPage);
+      var halfWay = Math.ceil(paginationRange / 2);
+      var position;
+
+      if (currentPage <= halfWay) {
+        position = 'start';
+      } else if (totalPages - halfWay < currentPage) {
+        position = 'end';
+      } else {
+        position = 'middle';
+      }
+
+      var ellipsesNeeded = paginationRange < totalPages;
+      var i = 1;
+      while (i <= totalPages && i <= paginationRange) {
+        var pageNumber = calculatePageNumber(i, currentPage, paginationRange, totalPages);
+
+        var openingEllipsesNeeded = (i === 2 && (position === 'middle' || position === 'end'));
+        var closingEllipsesNeeded = (i === paginationRange - 1 && (position === 'middle' || position === 'start'));
+        if (ellipsesNeeded && (openingEllipsesNeeded || closingEllipsesNeeded)) {
+          pages.push('...');
+        } else {
+          pages.push(pageNumber);
+        }
+        i++;
+      }
+      return pages;
+    }
+
+    /**
+     * Given the position in the sequence of pagination links [i], figure out what page number corresponds to that position.
+     *
+     * @param i
+     * @param currentPage
+     * @param paginationRange
+     * @param totalPages
+     * @returns {*}
+     */
+    function calculatePageNumber(i, currentPage, paginationRange, totalPages) {
+      var halfWay = Math.ceil(paginationRange / 2);
+      if (i === paginationRange) {
+        return totalPages;
+      } else if (i === 1) {
+        return i;
+      } else if (paginationRange < totalPages) {
+        if (totalPages - halfWay < currentPage) {
+          return totalPages - paginationRange + i;
+        } else if (halfWay < currentPage) {
+          return currentPage - halfWay + i;
+        } else {
+          return i;
+        }
+      } else {
+        return i;
+      }
+    }
+  }
+
+  /**
+   * This filter slices the collection into pages based on the current page number and number of items per page.
+   * @param paginationService
+   * @returns {Function}
+   */
+  function itemsPerPageFilter(paginationService) {
+
+    return function (collection, itemsPerPage, paginationId) {
+      if (typeof (paginationId) === 'undefined') {
+        paginationId = DEFAULT_ID;
+      }
+      if (!paginationService.isRegistered(paginationId)) {
+        throw 'pagination directive: the itemsPerPage id argument (id: ' + paginationId + ') does not match a registered pagination-id.';
+      }
+      var end;
+      var start;
+      if (angular.isObject(collection)) {
+        itemsPerPage = parseInt(itemsPerPage) || 9999999999;
+        if (paginationService.isAsyncMode(paginationId)) {
+          start = 0;
+        } else {
+          start = (paginationService.getCurrentPage(paginationId) - 1) * itemsPerPage;
+        }
+        end = start + itemsPerPage;
+        paginationService.setItemsPerPage(paginationId, itemsPerPage);
+
+        if (collection instanceof Array) {
+          // the array just needs to be sliced
+          return collection.slice(start, end);
+        } else {
+          // in the case of an object, we need to get an array of keys, slice that, then map back to
+          // the original object.
+          var slicedObject = {};
+          angular.forEach(keys(collection).slice(start, end), function (key) {
+            slicedObject[key] = collection[key];
+          });
+          return slicedObject;
+        }
+      } else {
+        return collection;
+      }
+    };
+  }
+
+  /**
+   * Shim for the Object.keys() method which does not exist in IE < 9
+   * @param obj
+   * @returns {Array}
+   */
+  function keys(obj) {
+    if (!Object.keys) {
+      var objKeys = [];
+      for (var i in obj) {
+        if (obj.hasOwnProperty(i)) {
+          objKeys.push(i);
+        }
+      }
+      return objKeys;
+    } else {
+      return Object.keys(obj);
+    }
+  }
+
+  /**
+   * This service allows the various parts of the module to communicate and stay in sync.
+   */
+  function paginationService() {
+
+    var instances = {};
+    var lastRegisteredInstance;
+
+    this.registerInstance = function (instanceId) {
+      if (typeof instances[instanceId] === 'undefined') {
+        instances[instanceId] = {
+          asyncMode: false
+        };
+        lastRegisteredInstance = instanceId;
+      }
+    };
+
+    this.deregisterInstance = function (instanceId) {
+      delete instances[instanceId];
+    };
+
+    this.isRegistered = function (instanceId) {
+      return (typeof instances[instanceId] !== 'undefined');
+    };
+
+    this.getLastInstanceId = function () {
+      return lastRegisteredInstance;
+    };
+
+    this.setCurrentPageParser = function (instanceId, val, scope) {
+      instances[instanceId].currentPageParser = val;
+      instances[instanceId].context = scope;
+    };
+    this.setCurrentPage = function (instanceId, val) {
+      instances[instanceId].currentPageParser.assign(instances[instanceId].context, val);
+    };
+    this.getCurrentPage = function (instanceId) {
+      var parser = instances[instanceId].currentPageParser;
+      return parser ? parser(instances[instanceId].context) : 1;
+    };
+
+    this.setItemsPerPage = function (instanceId, val) {
+      instances[instanceId].itemsPerPage = val;
+    };
+    this.getItemsPerPage = function (instanceId) {
+      return instances[instanceId].itemsPerPage;
+    };
+
+    this.setCollectionLength = function (instanceId, val) {
+      instances[instanceId].collectionLength = val;
+    };
+    this.getCollectionLength = function (instanceId) {
+      return instances[instanceId].collectionLength;
+    };
+
+    this.setAsyncModeTrue = function (instanceId) {
+      instances[instanceId].asyncMode = true;
+    };
+
+    this.setAsyncModeFalse = function (instanceId) {
+      instances[instanceId].asyncMode = false;
+    };
+
+    this.isAsyncMode = function (instanceId) {
+      return instances[instanceId].asyncMode;
+    };
+  }
+
+  /**
+   * This provider allows global configuration of the template path used by the dir-pagination-controls directive.
+   */
+  function paginationTemplateProvider() {
+
+    var templatePath = 'angularUtils.directives.dirPagination.template';
+    var templateString;
+
+    /**
+     * Set a templateUrl to be used by all instances of <dir-pagination-controls>
+     * @param {String} path
+     */
+    this.setPath = function (path) {
+      templatePath = path;
+    };
+
+    /**
+     * Set a string of HTML to be used as a template by all instances
+     * of <dir-pagination-controls>. If both a path *and* a string have been set,
+     * the string takes precedence.
+     * @param {String} str
+     */
+    this.setString = function (str) {
+      templateString = str;
+    };
+
+    this.$get = function () {
+      return {
+        getPath: function () {
+          return templatePath;
+        },
+        getString: function () {
+          return templateString;
+        }
+      };
+    };
+  }
+})();
+
 /*! ngstorage 0.3.10 | Copyright (c) 2016 Gias Kay Lee | MIT License */!function (a, b) { "use strict"; "function" == typeof define && define.amd ? define(["angular"], b) : a.hasOwnProperty("angular") ? b(a.angular) : "object" == typeof exports && (module.exports = b(require("angular"))) }(this, function (a) { "use strict"; function b(a, b) { var c; try { c = a[b] } catch (d) { c = !1 } if (c) { var e = "__" + Math.round(1e7 * Math.random()); try { a[b].setItem(e, e), a[b].removeItem(e, e) } catch (d) { c = !1 } } return c } function c(c) { var d = b(window, c); return function () { var e = "ngStorage-"; this.setKeyPrefix = function (a) { if ("string" != typeof a) throw new TypeError("[ngStorage] - " + c + "Provider.setKeyPrefix() expects a String."); e = a }; var f = a.toJson, g = a.fromJson; this.setSerializer = function (a) { if ("function" != typeof a) throw new TypeError("[ngStorage] - " + c + "Provider.setSerializer expects a function."); f = a }, this.setDeserializer = function (a) { if ("function" != typeof a) throw new TypeError("[ngStorage] - " + c + "Provider.setDeserializer expects a function."); g = a }, this.supported = function () { return !!d }, this.get = function (a) { return d && g(d.getItem(e + a)) }, this.set = function (a, b) { return d && d.setItem(e + a, f(b)) }, this.remove = function (a) { d && d.removeItem(e + a) }, this.$get = ["$rootScope", "$window", "$log", "$timeout", "$document", function (d, h, i, j, k) { var l, m, n = e.length, o = b(h, c), p = o || (i.warn("This browser does not support Web Storage!"), { setItem: a.noop, getItem: a.noop, removeItem: a.noop }), q = { $default: function (b) { for (var c in b) a.isDefined(q[c]) || (q[c] = a.copy(b[c])); return q.$sync(), q }, $reset: function (a) { for (var b in q) "$" === b[0] || delete q[b] && p.removeItem(e + b); return q.$default(a) }, $sync: function () { for (var a, b = 0, c = p.length; c > b; b++)(a = p.key(b)) && e === a.slice(0, n) && (q[a.slice(n)] = g(p.getItem(a))) }, $apply: function () { var b; if (m = null, !a.equals(q, l)) { b = a.copy(l), a.forEach(q, function (c, d) { a.isDefined(c) && "$" !== d[0] && (p.setItem(e + d, f(c)), delete b[d]) }); for (var c in b) p.removeItem(e + c); l = a.copy(q) } }, $supported: function () { return !!o } }; return q.$sync(), l = a.copy(q), d.$watch(function () { m || (m = j(q.$apply, 100, !1)) }), h.addEventListener && h.addEventListener("storage", function (b) { if (b.key) { var c = k[0]; c.hasFocus && c.hasFocus() || e !== b.key.slice(0, n) || (b.newValue ? q[b.key.slice(n)] = g(b.newValue) : delete q[b.key.slice(n)], l = a.copy(q), d.$apply()) } }), h.addEventListener && h.addEventListener("beforeunload", function () { q.$apply() }), q }] } } return a = a && a.module ? a : window.angular, a.module("ngStorage", []).provider("$localStorage", c("localStorage")).provider("$sessionStorage", c("sessionStorage")) });
 "use strict";
 
@@ -6197,6 +6871,7 @@ angular.module('app.chat').directive('chatWidget', function (ChatApi) {
 
     var _instance = this;
     _instance.products = products.data;
+    _instance.currentPage = 1;
 
   }
   angular.module('app.dashboard.products')
@@ -11873,74 +12548,6 @@ angular.module('SmartAdmin.Forms').directive('smartDropzone', function () {
 
 'use strict';
 
-angular.module('SmartAdmin.Forms').directive('smartValidateForm', function (formsCommon) {
-    return {
-        restrict: 'A',
-        link: function (scope, form, attributes) {
-
-            var validateOptions = {
-                rules: {},
-                messages: {},
-                highlight: function (element) {
-                    $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
-                },
-                unhighlight: function (element) {
-                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
-                },
-                errorElement: 'span',
-                errorClass: 'help-block',
-                errorPlacement: function (error, element) {
-                    if (element.parent('.input-group').length) {
-                        error.insertAfter(element.parent());
-                    } else {
-                        error.insertAfter(element);
-                    }
-                }
-            };
-            form.find('[data-smart-validate-input], [smart-validate-input]').each(function () {
-                var $input = $(this), fieldName = $input.attr('name');
-
-                validateOptions.rules[fieldName] = {};
-
-                if ($input.data('required') != undefined) {
-                    validateOptions.rules[fieldName].required = true;
-                }
-                if ($input.data('email') != undefined) {
-                    validateOptions.rules[fieldName].email = true;
-                }
-
-                if ($input.data('maxlength') != undefined) {
-                    validateOptions.rules[fieldName].maxlength = $input.data('maxlength');
-                }
-
-                if ($input.data('minlength') != undefined) {
-                    validateOptions.rules[fieldName].minlength = $input.data('minlength');
-                }
-
-                if($input.data('message')){
-                    validateOptions.messages[fieldName] = $input.data('message');
-                } else {
-                    angular.forEach($input.data(), function(value, key){
-                        if(key.search(/message/)== 0){
-                            if(!validateOptions.messages[fieldName])
-                                validateOptions.messages[fieldName] = {};
-
-                            var messageKey = key.toLowerCase().replace(/^message/,'')
-                            validateOptions.messages[fieldName][messageKey] = value;
-                        }
-                    });
-                }
-            });
-
-
-            form.validate(validateOptions);
-
-        }
-    }
-});
-
-'use strict';
-
 angular.module('SmartAdmin.Forms').directive('smartFueluxWizard', function () {
     return {
         restrict: 'A',
@@ -12065,6 +12672,74 @@ angular.module('SmartAdmin.Forms').directive('smartWizard', function () {
         }
     }
 });
+'use strict';
+
+angular.module('SmartAdmin.Forms').directive('smartValidateForm', function (formsCommon) {
+    return {
+        restrict: 'A',
+        link: function (scope, form, attributes) {
+
+            var validateOptions = {
+                rules: {},
+                messages: {},
+                highlight: function (element) {
+                    $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+                },
+                unhighlight: function (element) {
+                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+                },
+                errorElement: 'span',
+                errorClass: 'help-block',
+                errorPlacement: function (error, element) {
+                    if (element.parent('.input-group').length) {
+                        error.insertAfter(element.parent());
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
+            };
+            form.find('[data-smart-validate-input], [smart-validate-input]').each(function () {
+                var $input = $(this), fieldName = $input.attr('name');
+
+                validateOptions.rules[fieldName] = {};
+
+                if ($input.data('required') != undefined) {
+                    validateOptions.rules[fieldName].required = true;
+                }
+                if ($input.data('email') != undefined) {
+                    validateOptions.rules[fieldName].email = true;
+                }
+
+                if ($input.data('maxlength') != undefined) {
+                    validateOptions.rules[fieldName].maxlength = $input.data('maxlength');
+                }
+
+                if ($input.data('minlength') != undefined) {
+                    validateOptions.rules[fieldName].minlength = $input.data('minlength');
+                }
+
+                if($input.data('message')){
+                    validateOptions.messages[fieldName] = $input.data('message');
+                } else {
+                    angular.forEach($input.data(), function(value, key){
+                        if(key.search(/message/)== 0){
+                            if(!validateOptions.messages[fieldName])
+                                validateOptions.messages[fieldName] = {};
+
+                            var messageKey = key.toLowerCase().replace(/^message/,'')
+                            validateOptions.messages[fieldName][messageKey] = value;
+                        }
+                    });
+                }
+            });
+
+
+            form.validate(validateOptions);
+
+        }
+    }
+});
+
 'use strict';
 
 angular.module('SmartAdmin.Layout').directive('demoStates', function ($rootScope) {

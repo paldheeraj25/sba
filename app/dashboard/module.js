@@ -5,7 +5,8 @@ angular.module('app.dashboard', [
   'ngResource',
   'naif.base64',
   'upload-excel',
-  'app.dashboard.products'
+  'app.dashboard.products',
+  'angularUtils.directives.dirPagination'
 ])
 
   .config(function ($stateProvider) {

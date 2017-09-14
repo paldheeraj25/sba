@@ -43,7 +43,8 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="prod in products.products">
+                    <tr dir-paginate="prod in products.products | itemsPerPage: 10" total-items="products.products.length" current-page="products.currentPage"
+                      pagination-id="products">
                       <td>{{prod.tagid}}</td>
                       <td>{{prod.name}}</td>
                       <td>{{prod.date}}</td>
@@ -53,7 +54,7 @@
                 </table>
 
               </div>
-
+              <dir-pagination-controls boundary-links="true" pagination-id="products"></dir-pagination-controls>
             </div>
           </div>
         </div>
