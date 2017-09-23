@@ -65,7 +65,7 @@ angular.module('app.auth', [
         title: 'Locked Screen',
         htmlId: 'lock-page'
       }
-    })
+    });
 
 
 }).constant('authKeys', {
