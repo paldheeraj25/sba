@@ -647,6 +647,7 @@ angular.module('app.dashboard', [
   'naif.base64',
   'upload-excel',
   'app.dashboard.products',
+  'app.dashboard.analytics',
   'angularUtils.directives.dirPagination'
 ])
 
@@ -677,23 +678,6 @@ angular.module('app.dashboard', [
         views: {
           "content@app": {
             templateUrl: 'app/dashboard/social-wall.html'
-          }
-        },
-        data: {
-          title: 'Dashboard Social'
-        }
-      }).state('app.data-analytics', {
-        url: '/data-analytics',
-        params: { auth: null },
-        views: {
-          "content@app": {
-            controller: 'DataAnalyticsController',
-            templateUrl: 'app/dashboard/data-analytics.tpl.html',
-            resolve: {
-              scripts: function (lazyScript) {
-                return lazyScript.register('build/vendor.ui.js')
-              }
-            }
           }
         },
         data: {
@@ -2276,15 +2260,6 @@ angular.module('app.dashboard').controller('DashboardCtrl', function ($scope, $i
 
 angular.module('app.dashboard').controller('DataAnalyticsController', function ($scope, $state, $interval, CalendarEvent) {
 
-  firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-      console.log(user);
-      // User is signed in.
-    } else {
-      // No user is signed in.
-      $state.go('login');
-    }
-  });
   function getFakeItem(index, prevValue) {
     var limitUp = Math.min(100, prevValue + 5),
       limitDown = Math.abs(prevValue - 5);
@@ -2887,6 +2862,7 @@ $templateCache.put("app/layout/partials/navigation.tpl.html","<aside id=\"left-p
 $templateCache.put("app/layout/partials/sub-header.tpl.html","<div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\" data-sparkline-container>\r\n    <ul id=\"sparks\" class=\"\">\r\n        <li class=\"sparks-info\">\r\n            <h5> My Income <span class=\"txt-color-blue\">$47,171</span></h5>\r\n            <div class=\"sparkline txt-color-blue hidden-mobile hidden-md hidden-sm\">\r\n                1300, 1877, 2500, 2577, 2000, 2100, 3000, 2700, 3631, 2471, 2700, 3631, 2471\r\n            </div>\r\n        </li>\r\n        <li class=\"sparks-info\">\r\n            <h5> Site Traffic <span class=\"txt-color-purple\"><i class=\"fa fa-arrow-circle-up\"></i>&nbsp;45%</span></h5>\r\n            <div class=\"sparkline txt-color-purple hidden-mobile hidden-md hidden-sm\">\r\n                110,150,300,130,400,240,220,310,220,300, 270, 210\r\n            </div>\r\n        </li>\r\n        <li class=\"sparks-info\">\r\n            <h5> Site Orders <span class=\"txt-color-greenDark\"><i class=\"fa fa-shopping-cart\"></i>&nbsp;2447</span></h5>\r\n            <div class=\"sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm\">\r\n                110,150,300,130,400,240,220,310,220,300, 270, 210\r\n            </div>\r\n        </li>\r\n    </ul>\r\n</div>\r\n			");
 $templateCache.put("app/layout/partials/voice-commands.tpl.html","<!-- TRIGGER BUTTON:\r\n<a href=\"/my-ajax-page.html\" data-toggle=\"modal\" data-target=\"#remoteModal\" class=\"btn btn-default\">Open Modal</a>  -->\r\n\r\n<!-- MODAL PLACE HOLDER\r\n<div class=\"modal fade\" id=\"remoteModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"remoteModalLabel\" aria-hidden=\"true\">\r\n<div class=\"modal-dialog\">\r\n<div class=\"modal-content\"></div>\r\n</div>\r\n</div>   -->\r\n<!--////////////////////////////////////-->\r\n\r\n<!--<div class=\"modal-header\">\r\n<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">\r\n&times;\r\n</button>\r\n<h4 class=\"modal-title\" id=\"myModalLabel\">Command List</h4>\r\n</div>-->\r\n<div class=\"modal-body\">\r\n\r\n	<h1><i class=\"fa fa-microphone text-muted\"></i>&nbsp;&nbsp; SmartAdmin Voice Command</h1>\r\n	<hr class=\"simple\">\r\n	<h5>Instruction</h5>\r\n\r\n	Click <span class=\"text-success\">\"Allow\"</span> to access your microphone and activate Voice Command.\r\n	You will notice a <span class=\"text-primary\"><strong>BLUE</strong> Flash</span> on the microphone icon indicating activation.\r\n	The icon will appear <span class=\"text-danger\"><strong>RED</strong></span> <span class=\"label label-danger\"><i class=\"fa fa-microphone fa-lg\"></i></span> if you <span class=\"text-danger\">\"Deny\"</span> access or don\'t have any microphone installed.\r\n	<br>\r\n	<br>\r\n	As a security precaution, your browser will disconnect the microphone every 60 to 120 seconds (sooner if not being used). In which case Voice Command will prompt you again to <span class=\"text-success\">\"Allow\"</span> or <span class=\"text-danger\">\"Deny\"</span> access to your microphone.\r\n	<br>\r\n	<br>\r\n	If you host your page over <strong>http<span class=\"text-success\">s</span></strong> (secure socket layer) protocol you can wave this security measure and have an unintrupted Voice Command.\r\n	<br>\r\n	<br>\r\n	<h5>Commands</h5>\r\n	<ul>\r\n		<li>\r\n			<strong>\'show\' </strong> then say the <strong>*page*</strong> you want to go to. For example <strong>\"show inbox\"</strong> or <strong>\"show calendar\"</strong>\r\n		</li>\r\n		<li>\r\n			<strong>\'mute\' </strong> - mutes all sound effects for the theme.\r\n		</li>\r\n		<li>\r\n			<strong>\'sound on\'</strong> - unmutes all sound effects for the theme.\r\n		</li>\r\n		<li>\r\n			<span class=\"text-danger\"><strong>\'stop\'</strong></span> - deactivates voice command.\r\n		</li>\r\n		<li>\r\n			<span class=\"text-primary\"><strong>\'help\'</strong></span> - brings up the command list\r\n		</li>\r\n		<li>\r\n			<span class=\"text-danger\"><strong>\'got it\'</strong></span> - closes help modal\r\n		</li>\r\n		<li>\r\n			<strong>\'hide navigation\'</strong> - toggle navigation collapse\r\n		</li>\r\n		<li>\r\n			<strong>\'show navigation\'</strong> - toggle navigation to open (can be used again to close)\r\n		</li>\r\n		<li>\r\n			<strong>\'scroll up\'</strong> - scrolls to the top of the page\r\n		</li>\r\n		<li>\r\n			<strong>\'scroll down\'</strong> - scrollts to the bottom of the page\r\n		</li>\r\n		<li>\r\n			<strong>\'go back\' </strong> - goes back in history (history -1 click)\r\n		</li>\r\n		<li>\r\n			<strong>\'logout\'</strong> - logs you out\r\n		</li>\r\n	</ul>\r\n	<br>\r\n	<h5>Adding your own commands</h5>\r\n	Voice Command supports up to 80 languages. Adding your own commands is extreamly easy. All commands are stored inside <strong>app.config.js</strong> file under the <code>var commands = {...}</code>. \r\n\r\n	<hr class=\"simple\">\r\n	<div class=\"text-right\">\r\n		<button type=\"button\" class=\"btn btn-success btn-lg\" data-dismiss=\"modal\">\r\n			Got it!\r\n		</button>\r\n	</div>\r\n\r\n</div>\r\n<!--<div class=\"modal-footer\">\r\n<button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">Got it!</button>\r\n</div> -->");
 $templateCache.put("app/layout/shortcut/shortcut.tpl.html","<div id=\"shortcut\">\r\n	<ul>\r\n		<li>\r\n			<a href=\"#/inbox/\" class=\"jarvismetro-tile big-cubes bg-color-blue\"> <span class=\"iconbox\"> <i class=\"fa fa-envelope fa-4x\"></i> <span>Mail <span class=\"label pull-right bg-color-darken\">14</span></span> </span> </a>\r\n		</li>\r\n		<li>\r\n			<a href=\"#/calendar\" class=\"jarvismetro-tile big-cubes bg-color-orangeDark\"> <span class=\"iconbox\"> <i class=\"fa fa-calendar fa-4x\"></i> <span>Calendar</span> </span> </a>\r\n		</li>\r\n		<li>\r\n			<a href=\"#/maps\" class=\"jarvismetro-tile big-cubes bg-color-purple\"> <span class=\"iconbox\"> <i class=\"fa fa-map-marker fa-4x\"></i> <span>Maps</span> </span> </a>\r\n		</li>\r\n		<li>\r\n			<a href=\"#/invoice\" class=\"jarvismetro-tile big-cubes bg-color-blueDark\"> <span class=\"iconbox\"> <i class=\"fa fa-book fa-4x\"></i> <span>Invoice <span class=\"label pull-right bg-color-darken\">99</span></span> </span> </a>\r\n		</li>\r\n		<li>\r\n			<a href=\"#/gallery\" class=\"jarvismetro-tile big-cubes bg-color-greenLight\"> <span class=\"iconbox\"> <i class=\"fa fa-picture-o fa-4x\"></i> <span>Gallery </span> </span> </a>\r\n		</li>\r\n		<li>\r\n			<a href=\"#/profile\" class=\"jarvismetro-tile big-cubes selected bg-color-pinkDark\"> <span class=\"iconbox\"> <i class=\"fa fa-user fa-4x\"></i> <span>My Profile </span> </span> </a>\r\n		</li>\r\n	</ul>\r\n</div>");
+$templateCache.put("app/dashboard/analytics/views/data-analytics.tpl.html","<div id=\"content\">\r\n\r\n  <!-- row -->\r\n  <div class=\"row\">\r\n\r\n    <!-- col -->\r\n    <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\r\n      <h1 class=\"page-title txt-color-blueDark\">\r\n        <!-- PAGE HEADER --><i class=\"fa-fw fa fa-home\"></i> Dashboard <span>>\r\n							data Analytics </span></h1>\r\n    </div>\r\n    <!-- end col -->\r\n\r\n  </div>\r\n  <!-- end row -->\r\n\r\n  <!--\r\n    The ID \"widget-grid\" will start to initialize all widgets below\r\n    You do not need to use widgets if you dont want to. Simply remove\r\n    the <section></section> and you can use wells or panels instead\r\n    -->\r\n\r\n  <!-- widget grid -->\r\n  <section id=\"widget-grid\" class=\"\">\r\n\r\n    <!-- row -->\r\n    <div class=\"row\">\r\n      <article class=\"col-sm-12 col-md-12 col-lg-6\">\r\n        <div jarvis-widget id=\"table-hover-states-widget\" data-widget-color=\"greenDark\" data-widget-editbutton=\"false\">\r\n          <header>\r\n            <span class=\"widget-icon\"> <i class=\"fa fa-table\"></i> </span>\r\n\r\n            <h2>User Taps (engagement)</h2>\r\n          </header>\r\n          <div>\r\n            <div class=\"widget-body no-padding\">\r\n              <div class=\"table-responsive\">\r\n\r\n                <table class=\"table table-hover\">\r\n                  <thead>\r\n                    <tr>\r\n                      <th>Time</th>\r\n                      <th>Taps</th>\r\n                      <th>User</th>\r\n                    </tr>\r\n                  </thead>\r\n                  <tbody>\r\n                    <tr>\r\n                      <td>Last 24 hours</td>\r\n                      <td>20</td>\r\n                      <td>7</td>\r\n                    </tr>\r\n                    <tr>\r\n                      <td>Last week</td>\r\n                      <td>105</td>\r\n                      <td>30</td>\r\n                    </tr>\r\n                    <tr>\r\n                      <td>Last month</td>\r\n                      <td>589</td>\r\n                      <td>115</td>\r\n                    </tr>\r\n                    <tr>\r\n                      <td>Last 1 year</td>\r\n                      <td>5934</td>\r\n                      <td>1002</td>\r\n                    </tr>\r\n                  </tbody>\r\n                </table>\r\n\r\n              </div>\r\n\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </article>\r\n      <!--map wise analytics-->\r\n      <article class=\"col-sm-12 col-md-12 col-lg-6\" style=\"float:right\">\r\n\r\n        <div id=\"birda-eye-widget\" data-jarvis-widget data-widget-colorbutton=\"false\" data-widget-editbutton=\"false\">\r\n\r\n          <header>\r\n            <span class=\"widget-icon\"> <i class=\"fa fa-map-marker\"></i> </span>\r\n\r\n            <h2>World Wide User Taps (engagement)</h2>\r\n\r\n            <div class=\"widget-toolbar hidden-mobile\">\r\n              <span class=\"onoffswitch-title\"><i class=\"fa fa-location-arrow\"></i> Realtime</span>\r\n              <span class=\"onoffswitch\">\r\n								<input type=\"checkbox\" name=\"onoffswitch\" class=\"onoffswitch-checkbox\"\r\n								checked=\"checked\" id=\"myonoffswitch\">\r\n								<label class=\"onoffswitch-label\" for=\"myonoffswitch\"> <span\r\n									class=\"onoffswitch-inner\" data-swchon-text=\"YES\"\r\n									data-swchoff-text=\"NO\"></span> <span class=\"onoffswitch-switch\"></span> </label>\r\n              </span>\r\n            </div>\r\n          </header>\r\n\r\n          <!-- widget div-->\r\n          <div>\r\n\r\n            <div class=\"widget-body no-padding\">\r\n              <!-- content goes here -->\r\n\r\n              <div id=\"vector-map\" class=\"vector-map\" data-vector-map data-map-data=\"countriesVisitsData\"></div>\r\n\r\n              <div id=\"heat-fill\">\r\n                <span class=\"fill-a\">0</span>\r\n\r\n                <span class=\"fill-b\">5,000</span>\r\n              </div>\r\n\r\n              <table class=\"table table-striped table-hover table-condensed\">\r\n                <thead>\r\n                  <tr>\r\n                    <th>Country</th>\r\n                    <th>Taps</th>\r\n                    <th class=\"text-align-center\">User Activity</th>\r\n                    <th class=\"text-align-center\">coupon used</th>\r\n                    <th class=\"text-align-center\">Demographic</th>\r\n                  </tr>\r\n                </thead>\r\n                <tbody data-sparkline-container>\r\n                  <tr>\r\n                    <td><a href-void>USA</a></td>\r\n                    <td>4,977</td>\r\n                    <td class=\"text-align-center\">\r\n                      <div class=\"sparkline txt-color-blue text-align-center\" data-sparkline-height=\"22px\" data-sparkline-width=\"90px\" data-sparkline-barwidth=\"2\">\r\n                        2700, 3631, 2471, 1300, 1877, 2500, 2577, 2700, 3631, 2471, 2000, 2100, 3000\r\n                      </div>\r\n                    </td>\r\n                    <td class=\"text-align-center\">143</td>\r\n                    <td class=\"text-align-center\">\r\n                      <div class=\"sparkline display-inline\" data-sparkline-type=\'pie\' data-sparkline-piecolor=\'[\"#E979BB\", \"#57889C\"]\' data-sparkline-offset=\"90\"\r\n                        data-sparkline-piesize=\"23px\">\r\n                        17,83\r\n                      </div>\r\n                      <div class=\"btn-group display-inline pull-right text-align-left hidden-tablet\" data-dropdown>\r\n                        <button class=\"btn btn-xs btn-default dropdown-toggle\">\r\n												<i class=\"fa fa-cog fa-lg\"></i>\r\n											</button>\r\n                        <ul class=\"dropdown-menu dropdown-menu-xs pull-right\">\r\n                          <li>\r\n                            <a href-void><i class=\"fa fa-file fa-lg fa-fw txt-color-greenLight\"></i> <u>P</u>DF</a>\r\n                          </li>\r\n                          <li>\r\n                            <a href-void><i class=\"fa fa-times fa-lg fa-fw txt-color-red\"></i> <u>D</u>elete</a>\r\n                          </li>\r\n                          <li class=\"divider\"></li>\r\n                          <li class=\"text-align-center\">\r\n                            <a href-void>Cancel</a>\r\n                          </li>\r\n                        </ul>\r\n                      </div>\r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td><a href-void>Australia</a></td>\r\n                    <td>4,873</td>\r\n                    <td class=\"text-align-center\">\r\n                      <div class=\"sparkline txt-color-blue text-align-center\" data-sparkline-height=\"22px\" data-sparkline-width=\"90px\" data-sparkline-barwidth=\"2\">\r\n                        1000, 1100, 3030, 1300, -1877, -2500, -2577, -2700, 3631, 2471, 4700, 1631, 2471\r\n                      </div>\r\n                    </td>\r\n                    <td class=\"text-align-center\">247</td>\r\n                    <td class=\"text-align-center\">\r\n                      <div class=\"sparkline display-inline\" data-sparkline-type=\'pie\' data-sparkline-piecolor=\'[\"#E979BB\", \"#57889C\"]\' data-sparkline-offset=\"90\"\r\n                        data-sparkline-piesize=\"23px\">\r\n                        22,88\r\n                      </div>\r\n                      <div class=\"btn-group display-inline pull-right text-align-left hidden-tablet\">\r\n                        <button class=\"btn btn-xs btn-default dropdown-toggle\" data-toggle=\"dropdown\">\r\n												<i class=\"fa fa-cog fa-lg\"></i>\r\n											</button>\r\n                        <ul class=\"dropdown-menu dropdown-menu-xs pull-right\">\r\n                          <li>\r\n                            <a href-void><i class=\"fa fa-file fa-lg fa-fw txt-color-greenLight\"></i> <u>P</u>DF</a>\r\n                          </li>\r\n                          <li>\r\n                            <a href-void><i class=\"fa fa-times fa-lg fa-fw txt-color-red\"></i> <u>D</u>elete</a>\r\n                          </li>\r\n                          <li class=\"divider\"></li>\r\n                          <li class=\"text-align-center\">\r\n                            <a href-void>Cancel</a>\r\n                          </li>\r\n                        </ul>\r\n                      </div>\r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td><a href-void>India</a></td>\r\n                    <td>3,671</td>\r\n                    <td class=\"text-align-center\">\r\n                      <div class=\"sparkline txt-color-blue text-align-center\" data-sparkline-height=\"22px\" data-sparkline-width=\"90px\" data-sparkline-barwidth=\"2\">\r\n                        3631, 1471, 2400, 3631, 471, 1300, 1177, 2500, 2577, 3000, 4100, 3000, 7700\r\n                      </div>\r\n                    </td>\r\n                    <td class=\"text-align-center\">373</td>\r\n                    <td class=\"text-align-center\">\r\n                      <div class=\"sparkline display-inline\" data-sparkline-type=\'pie\' data-sparkline-piecolor=\'[\"#E979BB\", \"#57889C\"]\' data-sparkline-offset=\"90\"\r\n                        data-sparkline-piesize=\"23px\">\r\n                        10,90\r\n                      </div>\r\n                      <div class=\"btn-group display-inline pull-right text-align-left hidden-tablet\">\r\n                        <button class=\"btn btn-xs btn-default dropdown-toggle\" data-toggle=\"dropdown\">\r\n												<i class=\"fa fa-cog fa-lg\"></i>\r\n											</button>\r\n                        <ul class=\"dropdown-menu dropdown-menu-xs pull-right\">\r\n                          <li>\r\n                            <a href-void><i class=\"fa fa-file fa-lg fa-fw txt-color-greenLight\"></i> <u>P</u>DF</a>\r\n                          </li>\r\n                          <li>\r\n                            <a href-void><i class=\"fa fa-times fa-lg fa-fw txt-color-red\"></i> <u>D</u>elete</a>\r\n                          </li>\r\n                          <li class=\"divider\"></li>\r\n                          <li class=\"text-align-center\">\r\n                            <a href-void>Cancel</a>\r\n                          </li>\r\n                        </ul>\r\n                      </div>\r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td><a href-void>Brazil</a></td>\r\n                    <td>2,476</td>\r\n                    <td class=\"text-align-center\">\r\n                      <div class=\"sparkline txt-color-blue text-align-center\" data-sparkline-height=\"22px\" data-sparkline-width=\"90px\" data-sparkline-barwidth=\"2\">\r\n                        2700, 1877, 2500, 2577, 2000, 3631, 2471, -2700, -3631, 2471, 1300, 2100, 3000,\r\n                      </div>\r\n                    </td>\r\n                    <td class=\"text-align-center\">741</td>\r\n                    <td class=\"text-align-center\">\r\n                      <div class=\"sparkline display-inline\" data-sparkline-type=\'pie\' data-sparkline-piecolor=\'[\"#E979BB\", \"#57889C\"]\' data-sparkline-offset=\"90\"\r\n                        data-sparkline-piesize=\"23px\">\r\n                        34,66\r\n                      </div>\r\n                      <div class=\"btn-group display-inline pull-right text-align-left hidden-tablet\">\r\n                        <button class=\"btn btn-xs btn-default dropdown-toggle\" data-toggle=\"dropdown\">\r\n												<i class=\"fa fa-cog fa-lg\"></i>\r\n											</button>\r\n                        <ul class=\"dropdown-menu dropdown-menu-xs pull-right\">\r\n                          <li>\r\n                            <a href-void><i class=\"fa fa-file fa-lg fa-fw txt-color-greenLight\"></i> <u>P</u>DF</a>\r\n                          </li>\r\n                          <li>\r\n                            <a href-void><i class=\"fa fa-times fa-lg fa-fw txt-color-red\"></i> <u>D</u>elete</a>\r\n                          </li>\r\n                          <li class=\"divider\"></li>\r\n                          <li class=\"text-align-center\">\r\n                            <a href-void>Cancel</a>\r\n                          </li>\r\n                        </ul>\r\n                      </div>\r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td><a href-void>Turkey</a></td>\r\n                    <td>1,476</td>\r\n                    <td class=\"text-align-center\">\r\n                      <div class=\"sparkline txt-color-blue text-align-center\" data-sparkline-height=\"22px\" data-sparkline-width=\"90px\" data-sparkline-barwidth=\"2\">\r\n                        1300, 1877, 2500, 2577, 2000, 2100, 3000, -2471, -2700, -3631, -2471, 2700, 3631\r\n                      </div>\r\n                    </td>\r\n                    <td class=\"text-align-center\">123</td>\r\n                    <td class=\"text-align-center\">\r\n                      <div class=\"sparkline display-inline\" data-sparkline-type=\'pie\' data-sparkline-piecolor=\'[\"#E979BB\", \"#57889C\"]\' data-sparkline-offset=\"90\"\r\n                        data-sparkline-piesize=\"23px\">\r\n                        75,25\r\n                      </div>\r\n                      <div class=\"btn-group display-inline pull-right text-align-left hidden-tablet\">\r\n                        <button class=\"btn btn-xs btn-default dropdown-toggle\" data-toggle=\"dropdown\">\r\n												<i class=\"fa fa-cog fa-lg\"></i>\r\n											</button>\r\n                        <ul class=\"dropdown-menu dropdown-menu-xs pull-right\">\r\n                          <li>\r\n                            <a href-void><i class=\"fa fa-file fa-lg fa-fw txt-color-greenLight\"></i> <u>P</u>DF</a>\r\n                          </li>\r\n                          <li>\r\n                            <a href-void><i class=\"fa fa-times fa-lg fa-fw txt-color-red\"></i> <u>D</u>elete</a>\r\n                          </li>\r\n                          <li class=\"divider\"></li>\r\n                          <li class=\"text-align-center\">\r\n                            <a href-void>Cancel</a>\r\n                          </li>\r\n                        </ul>\r\n                      </div>\r\n                    </td>\r\n                  </tr>\r\n                  <tr>\r\n                    <td><a href-void>Canada</a></td>\r\n                    <td>146</td>\r\n                    <td class=\"text-align-center\">\r\n                      <div class=\"sparkline txt-color-orange text-align-center\" data-sparkline-height=\"22px\" data-sparkline-width=\"90px\" data-sparkline-barwidth=\"2\">\r\n                        5, 34, 10, 1, 4, 6, -9, -1, 0, 0, 5, 6, 7\r\n                      </div>\r\n                    </td>\r\n                    <td class=\"text-align-center\">23</td>\r\n                    <td class=\"text-align-center\">\r\n                      <div class=\"sparkline display-inline\" data-sparkline-type=\'pie\' data-sparkline-piecolor=\'[\"#E979BB\", \"#57889C\"]\' data-sparkline-offset=\"90\"\r\n                        data-sparkline-piesize=\"23px\">\r\n                        50,50\r\n                      </div>\r\n                      <div class=\"btn-group display-inline pull-right text-align-left hidden-tablet\">\r\n                        <button class=\"btn btn-xs btn-default dropdown-toggle\" data-toggle=\"dropdown\">\r\n												<i class=\"fa fa-cog fa-lg\"></i>\r\n											</button>\r\n                        <ul class=\"dropdown-menu dropdown-menu-xs pull-right\">\r\n                          <li>\r\n                            <a href-void><i class=\"fa fa-file fa-lg fa-fw txt-color-greenLight\"></i> <u>P</u>DF</a>\r\n                          </li>\r\n                          <li>\r\n                            <a href-void><i class=\"fa fa-times fa-lg fa-fw txt-color-red\"></i> <u>D</u>elete</a>\r\n                          </li>\r\n                          <li class=\"divider\"></li>\r\n                          <li class=\"text-align-center\">\r\n                            <a href-void>Cancel</a>\r\n                          </li>\r\n                        </ul>\r\n                      </div>\r\n                    </td>\r\n                  </tr>\r\n                </tbody>\r\n                <tfoot>\r\n                  <tr>\r\n                    <td colspan=5>\r\n                      <ul class=\"pagination pagination-xs no-margin\">\r\n                        <li class=\"prev disabled\">\r\n                          <a href-void>Previous</a>\r\n                        </li>\r\n                        <li class=\"active\">\r\n                          <a href-void>1</a>\r\n                        </li>\r\n                        <li>\r\n                          <a href-void>2</a>\r\n                        </li>\r\n                        <li>\r\n                          <a href-void>3</a>\r\n                        </li>\r\n                        <li class=\"next\">\r\n                          <a href-void>Next</a>\r\n                        </li>\r\n                      </ul>\r\n                    </td>\r\n                  </tr>\r\n                </tfoot>\r\n              </table>\r\n\r\n              <!-- end content -->\r\n\r\n            </div>\r\n\r\n          </div>\r\n          <!-- end widget div -->\r\n        </div>\r\n        <!-- end widget -->\r\n      </article>\r\n      <!--morrise line graph A-->\r\n      <article class=\"col-sm-12 col-md-12 col-lg-6\">\r\n\r\n        <div jarvis-widget id=\"sales-chart-widget\" data-widget-editbutton=\"false\">\r\n          <header>\r\n            <span class=\"widget-icon\"> <i class=\"fa fa-bar-chart-o\"></i> </span>\r\n\r\n            <h2>Taps Overtime</h2>\r\n          </header>\r\n\r\n          <div>\r\n            <div class=\"widget-body no-padding\">\r\n              <flot-sales-chart-a data=\"salesChartData\" style=\"height: 34vh;\"></flot-sales-chart-a>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n      </article>\r\n    </div>\r\n    <div class=\"row\">\r\n      <article class=\"col-xs-12 col-sm-4 col-md-5 col-lg-6\">\r\n\r\n        <div jarvis-widget id=\"pie-chart-widget\" data-widget-editbutton=\"false\">\r\n          <header>\r\n            <span class=\"widget-icon\"> <i class=\"fa fa-bar-chart-o\"></i> </span>\r\n\r\n            <h2>Coupon Taps</h2>\r\n          </header>\r\n\r\n          <div>\r\n            <div class=\"widget-body no-padding\">\r\n              <flot-pie-chart-a data=\"pieChartData\"></flot-pie-chart-a>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </article>\r\n      <article class=\"col-xs-12 col-sm-4 col-md-5 col-lg-6\">\r\n\r\n        <div jarvis-widget id=\"pie-chart-widget\" data-widget-editbutton=\"false\">\r\n          <header>\r\n            <span class=\"widget-icon\"> <i class=\"fa fa-bar-chart-o\"></i> </span>\r\n\r\n            <h2>Reorder via product</h2>\r\n          </header>\r\n\r\n          <div>\r\n            <div class=\"widget-body no-padding\">\r\n              <flot-pie-chart-a data=\"pieChartData\"></flot-pie-chart-a>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </article>\r\n    </div>\r\n    <!-- end row -->\r\n\r\n  </section>\r\n  <!-- end widget grid -->\r\n\r\n</div>");
 $templateCache.put("app/dashboard/chat/directives/aside-chat-widget.tpl.html","<ul>\r\n    <li>\r\n        <div class=\"display-users\">\r\n            <input class=\"form-control chat-user-filter\" placeholder=\"Filter\" type=\"text\">\r\n            <dl>\r\n                <dt>\r\n                    <a href=\"#\" class=\"usr\"\r\n                       data-chat-id=\"cha1\"\r\n                       data-chat-fname=\"Sadi\"\r\n                       data-chat-lname=\"Orlaf\"\r\n                       data-chat-status=\"busy\"\r\n                       data-chat-alertmsg=\"Sadi Orlaf is in a meeting. Please do not disturb!\"\r\n                       data-chat-alertshow=\"true\"\r\n                       popover-trigger=\"hover\"\r\n                       popover-placement=\"right\"\r\n                       smart-popover-html=\"\r\n										<div class=\'usr-card\'>\r\n											<img src=\'styles/img/avatars/5.png\' alt=\'Sadi Orlaf\'>\r\n											<div class=\'usr-card-content\'>\r\n												<h3>Sadi Orlaf</h3>\r\n												<p>Marketing Executive</p>\r\n											</div>\r\n										</div>\r\n									\">\r\n                        <i></i>Sadi Orlaf\r\n                    </a>\r\n                </dt>\r\n                <dt>\r\n                    <a href=\"#\" class=\"usr\"\r\n                       data-chat-id=\"cha2\"\r\n                       data-chat-fname=\"Jessica\"\r\n                       data-chat-lname=\"Dolof\"\r\n                       data-chat-status=\"online\"\r\n                       data-chat-alertmsg=\"\"\r\n                       data-chat-alertshow=\"false\"\r\n                       popover-trigger=\"hover\"\r\n                       popover-placement=\"right\"\r\n                       smart-popover-html=\"\r\n										<div class=\'usr-card\'>\r\n											<img src=\'styles/img/avatars/1.png\' alt=\'Jessica Dolof\'>\r\n											<div class=\'usr-card-content\'>\r\n												<h3>Jessica Dolof</h3>\r\n												<p>Sales Administrator</p>\r\n											</div>\r\n										</div>\r\n									\">\r\n                        <i></i>Jessica Dolof\r\n                    </a>\r\n                </dt>\r\n                <dt>\r\n                    <a href=\"#\" class=\"usr\"\r\n                       data-chat-id=\"cha3\"\r\n                       data-chat-fname=\"Zekarburg\"\r\n                       data-chat-lname=\"Almandalie\"\r\n                       data-chat-status=\"online\"\r\n                       popover-trigger=\"hover\"\r\n                       popover-placement=\"right\"\r\n                       smart-popover-html=\"\r\n										<div class=\'usr-card\'>\r\n											<img src=\'styles/img/avatars/3.png\' alt=\'Zekarburg Almandalie\'>\r\n											<div class=\'usr-card-content\'>\r\n												<h3>Zekarburg Almandalie</h3>\r\n												<p>Sales Admin</p>\r\n											</div>\r\n										</div>\r\n									\">\r\n                        <i></i>Zekarburg Almandalie\r\n                    </a>\r\n                </dt>\r\n                <dt>\r\n                    <a href=\"#\" class=\"usr\"\r\n                       data-chat-id=\"cha4\"\r\n                       data-chat-fname=\"Barley\"\r\n                       data-chat-lname=\"Krazurkth\"\r\n                       data-chat-status=\"away\"\r\n                       popover-trigger=\"hover\"\r\n                       popover-placement=\"right\"\r\n                       smart-popover-html=\"\r\n										<div class=\'usr-card\'>\r\n											<img src=\'styles/img/avatars/4.png\' alt=\'Barley Krazurkth\'>\r\n											<div class=\'usr-card-content\'>\r\n												<h3>Barley Krazurkth</h3>\r\n												<p>Sales Director</p>\r\n											</div>\r\n										</div>\r\n									\">\r\n                        <i></i>Barley Krazurkth\r\n                    </a>\r\n                </dt>\r\n                <dt>\r\n                    <a href=\"#\" class=\"usr offline\"\r\n                       data-chat-id=\"cha5\"\r\n                       data-chat-fname=\"Farhana\"\r\n                       data-chat-lname=\"Amrin\"\r\n                       data-chat-status=\"incognito\"\r\n                       popover-trigger=\"hover\"\r\n                       popover-placement=\"right\"\r\n                       smart-popover-html=\"\r\n										<div class=\'usr-card\'>\r\n											<img src=\'styles/img/avatars/female.png\' alt=\'Farhana Amrin\'>\r\n											<div class=\'usr-card-content\'>\r\n												<h3>Farhana Amrin</h3>\r\n												<p>Support Admin <small><i class=\'fa fa-music\'></i> Playing Beethoven Classics</small></p>\r\n											</div>\r\n										</div>\r\n									\">\r\n                        <i></i>Farhana Amrin (offline)\r\n                    </a>\r\n                </dt>\r\n                <dt>\r\n                    <a href=\"#\" class=\"usr offline\"\r\n                       data-chat-id=\"cha6\"\r\n                       data-chat-fname=\"Lezley\"\r\n                       data-chat-lname=\"Jacob\"\r\n                       data-chat-status=\"incognito\"\r\n                       popover-trigger=\"hover\"\r\n                       popover-placement=\"right\"\r\n                       smart-popover-html=\"\r\n										<div class=\'usr-card\'>\r\n											<img src=\'styles/img/avatars/male.png\' alt=\'Lezley Jacob\'>\r\n											<div class=\'usr-card-content\'>\r\n												<h3>Lezley Jacob</h3>\r\n												<p>Sales Director</p>\r\n											</div>\r\n										</div>\r\n									\">\r\n                        <i></i>Lezley Jacob (offline)\r\n                    </a>\r\n                </dt>\r\n            </dl>\r\n\r\n\r\n            <!--<a href=\"chat.html\" class=\"btn btn-xs btn-default btn-block sa-chat-learnmore-btn\">About the API</a>-->\r\n        </div>\r\n    </li>\r\n</ul>");
 $templateCache.put("app/dashboard/chat/directives/chat-users.tpl.html","<div id=\"chat-container\" ng-class=\"{open: open}\">\r\n    <span class=\"chat-list-open-close\" ng-click=\"openToggle()\"><i class=\"fa fa-user\"></i><b>!</b></span>\r\n\r\n    <div class=\"chat-list-body custom-scroll\">\r\n        <ul id=\"chat-users\">\r\n            <li ng-repeat=\"chatUser in chatUsers | filter: chatUserFilter\">\r\n                <a ng-click=\"messageTo(chatUser)\"><img ng-src=\"{{chatUser.picture}}\">{{chatUser.username}} <span\r\n                        class=\"badge badge-inverse\">{{chatUser.username.length}}</span><span class=\"state\"><i\r\n                        class=\"fa fa-circle txt-color-green pull-right\"></i></span></a>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n    <div class=\"chat-list-footer\">\r\n        <div class=\"control-group\">\r\n            <form class=\"smart-form\">\r\n                <section>\r\n                    <label class=\"input\" >\r\n                        <input type=\"text\" ng-model=\"chatUserFilter\" id=\"filter-chat-list\" placeholder=\"Filter\">\r\n                    </label>\r\n                </section>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>");
 $templateCache.put("app/dashboard/chat/directives/chat-widget.tpl.html","<div id=\"chat-widget\" jarvis-widget data-widget-color=\"blueDark\" data-widget-editbutton=\"false\"\r\n     data-widget-fullscreenbutton=\"false\">\r\n\r\n\r\n    <header>\r\n        <span class=\"widget-icon\"> <i class=\"fa fa-comments txt-color-white\"></i> </span>\r\n\r\n        <h2> SmartMessage </h2>\r\n\r\n        <div class=\"widget-toolbar\">\r\n            <!-- add: non-hidden - to disable auto hide -->\r\n\r\n            <div class=\"btn-group\" data-dropdown>\r\n                <button class=\"btn dropdown-toggle btn-xs btn-success\" data-toggle=\"dropdown\">\r\n                    Status <i class=\"fa fa-caret-down\"></i>\r\n                </button>\r\n                <ul class=\"dropdown-menu pull-right js-status-update\">\r\n                    <li>\r\n                        <a href-void><i class=\"fa fa-circle txt-color-green\"></i> Online</a>\r\n                    </li>\r\n                    <li>\r\n                        <a href-void><i class=\"fa fa-circle txt-color-red\"></i> Busy</a>\r\n                    </li>\r\n                    <li>\r\n                        <a href-void><i class=\"fa fa-circle txt-color-orange\"></i> Away</a>\r\n                    </li>\r\n                    <li class=\"divider\"></li>\r\n                    <li>\r\n                        <a href-void><i class=\"fa fa-power-off\"></i> Log Off</a>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </header>\r\n\r\n    <!-- widget div-->\r\n    <div>\r\n        <div class=\"widget-body widget-hide-overflow no-padding\">\r\n            <!-- content goes here -->\r\n\r\n            <chat-users></chat-users>\r\n\r\n            <!-- CHAT BODY -->\r\n            <div id=\"chat-body\" class=\"chat-body custom-scroll\">\r\n                <ul>\r\n                    <li class=\"message\" ng-repeat=\"message in chatMessages\">\r\n                        <img class=\"message-picture online\" ng-src=\"{{message.user.picture}}\">\r\n\r\n                        <div class=\"message-text\">\r\n                            <time>\r\n                                {{message.date | date }}\r\n                            </time>\r\n                            <a ng-click=\"messageTo(message.user)\" class=\"username\">{{message.user.username}}</a>\r\n                            <div ng-bind-html=\"message.body\"></div>\r\n\r\n                        </div>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n\r\n            <!-- CHAT FOOTER -->\r\n            <div class=\"chat-footer\">\r\n\r\n                <!-- CHAT TEXTAREA -->\r\n                <div class=\"textarea-div\">\r\n\r\n                    <div class=\"typearea\">\r\n                        <textarea placeholder=\"Write a reply...\" id=\"textarea-expand\"\r\n                                  class=\"custom-scroll\" ng-model=\"newMessage\"></textarea>\r\n                    </div>\r\n\r\n                </div>\r\n\r\n                <!-- CHAT REPLY/SEND -->\r\n											<span class=\"textarea-controls\">\r\n												<button class=\"btn btn-sm btn-primary pull-right\" ng-click=\"sendMessage()\">\r\n                                                    Reply\r\n                                                </button> <span class=\"pull-right smart-form\"\r\n                                                                style=\"margin-top: 3px; margin-right: 10px;\"> <label\r\n                                                    class=\"checkbox pull-right\">\r\n                                                <input type=\"checkbox\" name=\"subscription\" id=\"subscription\">\r\n                                                <i></i>Press <strong> ENTER </strong> to send </label> </span> <a\r\n                                                    href-void class=\"pull-left\"><i\r\n                                                    class=\"fa fa-camera fa-fw fa-lg\"></i></a> </span>\r\n\r\n            </div>\r\n\r\n            <!-- end content -->\r\n        </div>\r\n\r\n    </div>\r\n    <!-- end widget div -->\r\n</div>");
@@ -6112,7 +6088,7 @@ angular.module('app.auth').controller('LoginController', function ($scope, $stat
       $http(req).then(function (data) {
         if (data) {
           $localStorage.token = data.data.token;
-          $state.go('app.dashboard');
+          $state.go('app.dashboardAnalytics');
         }
       }, function (err) {
         throw err;
@@ -6145,6 +6121,222 @@ angular.module('app.auth').controller('RegisterController', function ($scope, $s
   };
 
 });
+
+(function () {
+
+  'use strict';
+
+  function registerStates(stateProvider) {
+
+    // Infrastructure Provider - List State
+    var analyticsState = {
+      name: 'app.dashboardAnalytics',
+      url: '/dasboard-analytics',
+      views: {
+        "content@app": {
+          templateUrl: 'app/dashboard/analytics/views/data-analytics.tpl.html',
+          controller: 'DashboardAnalyticsController',
+          controllerAs: 'dashboard',
+          resolve: {
+            srcipts: function (lazyScript) {
+              return lazyScript.register([
+                'build/vendor.ui.js'
+              ]);
+            }
+          }
+        }
+      },
+      data: {
+        title: 'Dashboard Social'
+      },
+    };
+
+    // Register states with the UI Router State Provider
+    stateProvider
+      .state(analyticsState);
+  }
+
+  // Function which configures the module
+  function configureModule($stateProvider) {
+    registerStates($stateProvider);
+  }
+
+  // Products Module declaration
+  var module = angular.module('app.dashboard.analytics', []);
+
+  // Configure the module
+  module.config(configureModule);
+
+})();
+(function () {
+
+  'use strict';
+
+  function DashboardAnalyticsController($scope, $state, $interval, CalendarEvent) {
+
+    function getFakeItem(index, prevValue) {
+      var limitUp = Math.min(100, prevValue + 5),
+        limitDown = Math.abs(prevValue - 5);
+      return [
+        index,
+        _.random(limitDown, limitUp, true)
+      ]
+    }
+
+    function getFakeData() {
+      return _(_.range(199)).reduce(function (out, number) {
+
+        out.push(getFakeItem(number + 1, _.last(out)[1]));
+        return out;
+      }, [
+          [0, 50] // starting point
+        ])
+    }
+
+    $scope.autoUpdate = false;
+
+    var updateInterval;
+    $scope.$watch('autoUpdate', function (autoUpdate) {
+
+      if (autoUpdate) {
+        updateInterval = $interval(function () {
+          var stats = _.rest($scope.liveStats[0]).map(function (elem, i) {
+            elem[0] = i;
+            return elem;
+          });
+          stats.push([199, _.last(stats)[1]]);
+          $scope.liveStats = [stats];
+        }, 1500)
+      } else {
+        $interval.cancel(updateInterval);
+      }
+    });
+
+
+    $scope.liveStats = [getFakeData()];
+
+    // bird eye widget data
+    $scope.countriesVisitsData = {
+      "US": 4977,
+      "AU": 4873,
+      "IN": 3671,
+      "BR": 2476,
+      "TR": 1476,
+      "CN": 146,
+      "CA": 134,
+      "BD": 100
+    };
+
+    $scope.events = [];
+
+    $scope.salesChartData = [
+      [1196463600000, 0],
+      [1196550000000, 0],
+      [1196636400000, 0],
+      [1196722800000, 77],
+      [1196809200000, 3636],
+      [1196895600000, 3575],
+      [1196982000000, 2736],
+      [1197068400000, 1086],
+      [1197154800000, 676],
+      [1197241200000, 1205],
+      [1197327600000, 906],
+      [1197414000000, 710],
+      [1197500400000, 639],
+      [1197586800000, 540],
+      [1197673200000, 435],
+      [1197759600000, 301],
+      [1197846000000, 575],
+      [1197932400000, 481],
+      [1198018800000, 591],
+      [1198105200000, 608],
+      [1198191600000, 459],
+      [1198278000000, 234],
+      [1198364400000, 1352],
+      [1198450800000, 686],
+      [1198537200000, 279],
+      [1198623600000, 449],
+      [1198710000000, 468],
+      [1198796400000, 392],
+      [1198882800000, 282],
+      [1198969200000, 208],
+      [1199055600000, 229],
+      [1199142000000, 177],
+      [1199228400000, 374],
+      [1199314800000, 436],
+      [1199401200000, 404],
+      [1199487600000, 253],
+      [1199574000000, 218],
+      [1199660400000, 476],
+      [1199746800000, 462],
+      [1199833200000, 500],
+      [1199919600000, 700],
+      [1200006000000, 750],
+      [1200092400000, 600],
+      [1200178800000, 500],
+      [1200265200000, 900],
+      [1200351600000, 930],
+      [1200438000000, 1200],
+      [1200524400000, 980],
+      [1200610800000, 950],
+      [1200697200000, 900],
+      [1200783600000, 1000],
+      [1200870000000, 1050],
+      [1200956400000, 1150],
+      [1201042800000, 1100],
+      [1201129200000, 1200],
+      [1201215600000, 1300],
+      [1201302000000, 1700],
+      [1201388400000, 1450],
+      [1201474800000, 1500],
+      [1201561200000, 546],
+      [1201647600000, 614],
+      [1201734000000, 954],
+      [1201820400000, 1700],
+      [1201906800000, 1800],
+      [1201993200000, 1900],
+      [1202079600000, 2000],
+      [1202166000000, 2100],
+      [1202252400000, 2200],
+      [1202338800000, 2300],
+      [1202425200000, 2400],
+      [1202511600000, 2550],
+      [1202598000000, 2600],
+      [1202684400000, 2500],
+      [1202770800000, 2700],
+      [1202857200000, 2750],
+      [1202943600000, 2800],
+      [1203030000000, 3245],
+      [1203116400000, 3345],
+      [1203202800000, 3000],
+      [1203289200000, 3200],
+      [1203375600000, 3300],
+      [1203462000000, 3400],
+      [1203548400000, 3600],
+      [1203634800000, 3700],
+      [1203721200000, 3800],
+      [1203807600000, 4000],
+      [1203894000000, 4500]
+    ]
+      .map(function (item) {
+        return [
+          item[0] + 60 * 60 * 1000,
+          item[1]
+        ]
+      });
+
+
+    $scope.pieChartData = _.range(Math.floor(Math.random() * 10) + 1).map(function (i) {
+      return {
+        label: "Series" + (i + 1),
+        data: Math.floor(Math.random() * 100) + 1
+      }
+    });
+
+  }
+  angular.module('app.dashboard.analytics')
+    .controller('DashboardAnalyticsController', DashboardAnalyticsController);
+})();
 
 'use strict';
 

@@ -22,7 +22,7 @@
       $http(req).then(function (data) {
         if (data) {
           $localStorage.token = data.data.token;
-          $state.go('app.dashboard');
+          $state.go('app.dashboardAnalytics');
         }
       }, function (err) {
         throw err;

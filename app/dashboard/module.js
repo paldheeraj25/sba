@@ -6,6 +6,7 @@ angular.module('app.dashboard', [
   'naif.base64',
   'upload-excel',
   'app.dashboard.products',
+  'app.dashboard.analytics',
   'angularUtils.directives.dirPagination'
 ])
 
@@ -36,23 +37,6 @@ angular.module('app.dashboard', [
         views: {
           "content@app": {
             templateUrl: 'app/dashboard/social-wall.html'
-          }
-        },
-        data: {
-          title: 'Dashboard Social'
-        }
-      }).state('app.data-analytics', {
-        url: '/data-analytics',
-        params: { auth: null },
-        views: {
-          "content@app": {
-            controller: 'DataAnalyticsController',
-            templateUrl: 'app/dashboard/data-analytics.tpl.html',
-            resolve: {
-              scripts: function (lazyScript) {
-                return lazyScript.register('build/vendor.ui.js')
-              }
-            }
           }
         },
         data: {
